@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/gps_main_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background1"
+    android:orientation="horizontal" >
+    
+     <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_weight="0.52"
+                        android:orientation="vertical" >
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="0.10"
+                            android:background="@drawable/text_view_border" >
+
+                            <ImageView
+                                android:id="@+id/imageView3"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentLeft="true"
+                                android:layout_centerVertical="true"
+                                android:layout_marginLeft="19dp"
+                                android:scaleType="matrix"
+                                android:src="@drawable/time" />
+
+                            <Chronometer
+                                android:id="@+id/timer"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentRight="true"
+                                android:layout_centerVertical="true"
+                                android:layout_marginRight="46dp"
+                                android:text="Chronometer"
+                                android:textSize="25sp" 
+                                android:textColor="@color/white"/>
+
+                        </RelativeLayout>
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="0.07"
+                            android:background="@drawable/text_view_border" >
+
+                            <TextView
+                                android:id="@+id/textView5"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerVertical="true"
+                                android:layout_toRightOf="@+id/tv_speed"
+                                android:text="m/s"
+                                android:textColor="@color/white"
+                                android:textSize="25sp" />
+
+                            <TextView
+                                android:id="@+id/tv_speed"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerHorizontal="true"
+                                android:layout_centerVertical="true"
+                                android:text="10.0"
+                                android:textColor="@color/white"
+                                android:textSize="25sp" />
+
+                            <ImageView
+                                android:id="@+id/imageView2"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentLeft="true"
+                                android:layout_centerVertical="true"
+                                android:layout_marginLeft="14dp"
+                                android:src="@drawable/v" />
+
+                        </RelativeLayout>
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="118dp"
+                            android:background="@drawable/text_view_border" >
+
+                            <TextView
+                                android:id="@+id/tv_latitude"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignLeft="@+id/tv_longitude"
+                                android:layout_alignParentBottom="true"
+                                android:layout_marginBottom="32dp"
+                                android:text="180,00&apos;00.00&quot;"
+                                android:textColor="@color/white"
+                                android:textSize="15sp" />
+
+                            <TextView
+                                android:id="@+id/tv_longitude"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_above="@+id/imageView6"
+                                android:layout_alignParentRight="true"
+                                android:layout_marginBottom="14dp"
+                                android:layout_marginRight="14dp"
+                                android:text="180,00&apos;00.00&quot;"
+                                android:textColor="@color/white"
+                                android:textSize="15sp" />
+
+                            <ImageView
+                                android:id="@+id/imageView6"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignTop="@+id/tv_latitude"
+                               
+                                android:layout_marginLeft="10sp"
+                                android:src="@drawable/e" />
+
+                            <ImageView
+                                android:id="@+id/imageView4"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignBottom="@+id/tv_longitude"
+                                android:layout_alignLeft="@+id/imageView6"
+                                android:src="@drawable/n" />
+
+                        </RelativeLayout>
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="0.07"
+                            android:background="@drawable/text_view_border" >
+
+                            <ImageButton
+                                android:id="@+id/bt_startAndStop"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerHorizontal="true"
+                                android:layout_centerVertical="true"
+                                android:background="@drawable/btn_background"
+                                android:src="@drawable/play" />
+
+                        </RelativeLayout>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="163dp"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical" >
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="240dp"
+                            android:layout_alignParentLeft="true"
+                            android:layout_alignParentRight="true"
+                            android:layout_weight="0.16"
+                            android:background="@drawable/text_view_border" >
+
+                            <TextView
+                                android:id="@+id/textView2"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentRight="true"
+                                android:layout_centerVertical="true"
+                                android:text="M "
+                                android:textAppearance="?android:attr/textAppearanceLarge"
+                                android:textColor="@color/white"
+                                android:textSize="50dp" />
+
+                            <TextView
+                                android:id="@+id/tv_altitude"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignBaseline="@+id/textView2"
+                                android:layout_alignBottom="@+id/textView2"
+                                android:layout_alignParentLeft="true"
+                                android:layout_marginLeft="26dp"
+                                android:text="8"
+                                android:textAppearance="?android:attr/textAppearanceLarge"
+                                android:textColor="@color/white"
+                                android:textSize="50dp" />
+
+                        </RelativeLayout>
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="0.48"
+                            android:background="@drawable/text_view_border" >
+
+                            <TextView
+                                android:id="@+id/tv_direction"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_above="@+id/imageView5"
+                                android:layout_centerHorizontal="true"
+                                android:layout_marginBottom="23dp"
+                                android:text="南"
+                                android:textColor="@color/white" />
+
+                            <ImageView
+                                android:id="@+id/iv_compassNeedle"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerHorizontal="true"
+                                android:layout_centerVertical="true"
+                                android:src="@drawable/compass" />
+
+                        </RelativeLayout>
+                    </LinearLayout>
+    
+    
+</LinearLayout>

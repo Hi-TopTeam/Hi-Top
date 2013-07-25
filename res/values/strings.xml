@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">MyClimb</string>
+    <string name="menu_settings">Settings</string>
+
+    <!-- Custom Add -->
+    <string name="username">用户名</string>
+    <string name="pwd">密码</string>
+    <string name="confirmPwd">确认密码</string>
+    <string name="btn_register">注册</string>
+    <string name="btn_login">登录</string>
+    <string name="btn_change">注册</string>
+    <string name="btn_return">返回</string>
+    <string name="ActivityOfAF4AdName">ActivityOfAF4Ad</string>
+    <string name="spin_prompt"> 请选择城市 </string>
+    <string name="gps">GPS</string>
+    <string name="map">地图</string>
+     <string name="map_not_ready">地图初始化失败</string>
+    <string name="weather">天气</string>
+    <string name="community">社区</string>
+
+    <string-array name="cities">
+        <item> 北京 </item>
+        <item> 上海 </item>
+        <item> 南京 </item>
+        <item> 乌鲁木齐 </item>
+        <item> 哈尔滨 </item>
+        <item> 符拉迪沃斯托克 </item>
+    </string-array>
+
+    <string name="etFileTitle">数据库名</string>
+    <string name="title_activity_input_output_database">InputOutputDatabaseActivity</string>
+    <string name="btnExpText">从SD卡导出数据库</string>
+    <string name="btnImpText">从本机导入数据库</string>
+    <string name="hello_world">欢迎登录主界面!</string>
+    <string name="title_activity_default_actitity">DefaultActitity</string>
+    <string name="title_activity_default">DefaultActivity</string>
+    <string name="title_activity_gps_obtain">GpsObtainActivity</string>
+    <string name="title_activity_record">RecordActivity</string>
+    <string name="title_activity_rec_details">RecDetailsActivity</string>
+    <string name="title_activity_basemap">地图</string>
+    
+
+</resources>

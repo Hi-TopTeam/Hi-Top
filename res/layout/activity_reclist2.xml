@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
+
+        <TextView
+            android:id="@+id/recId3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="36dp"
+            android:text=""
+            android:textColor="@color/chartreuse"
+            android:visibility="visible" />
+
+        <TextView
+            android:id="@+id/recDate3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/recName3"
+            android:layout_alignBottom="@+id/recName3"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="42dp"
+            android:text="TextView"
+            android:textColor="@color/chartreuse" />
+
+        <TextView
+            android:id="@+id/recName3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/recId3"
+            android:layout_alignBottom="@+id/recId3"
+            android:layout_marginLeft="44dp"
+            android:layout_toRightOf="@+id/recId3"
+            android:text="TextView"
+            android:textColor="@color/chartreuse" />
+
+    </RelativeLayout>
+
+</LinearLayout>
