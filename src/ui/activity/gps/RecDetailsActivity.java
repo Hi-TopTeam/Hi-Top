@@ -276,7 +276,7 @@ public class RecDetailsActivity extends ActivityOfAF4Ad implements
 						GMapActivity.class);
 				Bundle bundle = new Bundle();
 				bundle.putString("time", strTime);
-				bundle.putString("Marker", Name);
+				//bundle.putString("Marker", Name);
 				intent.putExtras(bundle);
 				startActivity(intent);
 			}

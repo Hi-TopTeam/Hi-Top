@@ -45,7 +45,10 @@ import com.google.android.gms.maps.model.Polyline;
 import com.google.android.gms.maps.model.PolylineOptions;
 import com.DreamTeam.HiTop.R;
 
+import domain.businessEntity.gps.AltitudeData;
 import domain.businessEntity.gps.LatLngData;
+import domain.businessService.gps.AltitudeDataService;
+import domain.businessService.gps.IAltitudeDataService;
 import domain.businessService.gps.ILatLngDataService;
 import domain.businessService.gps.LatLngDataService;
 
@@ -58,7 +61,7 @@ implements ConnectionCallbacks, OnConnectionFailedListener, LocationListener{
     //经纬度
     private double latitude;
     private double longitude;
-    
+    private double altitude;
 	private int flag = 0;
     private LatLngData data;
     private String strTime;
@@ -71,6 +74,8 @@ implements ConnectionCallbacks, OnConnectionFailedListener, LocationListener{
     
     private ILatLngDataService latLngDataService = null;
     
+    private IAltitudeDataService mAltitudeDataService=null;
+    
     private List<LatLng> points = new ArrayList<LatLng>();
     
     private List<LatLngData> dataList = new ArrayList<LatLngData>();
@@ -80,10 +85,12 @@ implements ConnectionCallbacks, OnConnectionFailedListener, LocationListener{
     private boolean traffic_status = false;
     private GoogleMap mMap;
     private UiSettings mUiSettings;
+    private int count; //进行每10分钟记录一个高度值
+    private String startTime;//接受广播传送的startTime作为记录标识
 
   
     private static final LocationRequest REQUEST = LocationRequest.create()
-        .setInterval(50000)         // 50 seconds
+        .setInterval(60000)         // 60 seconds
         .setFastestInterval(20)    // 16ms = 60fps
         .setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
     
@@ -105,6 +112,7 @@ implements ConnectionCallbacks, OnConnectionFailedListener, LocationListener{
         }
             
         latLngDataService = new LatLngDataService();
+        mAltitudeDataService = new AltitudeDataService();
         setUpMapIfNeeded();
         
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(29,113),2));
@@ -258,7 +266,7 @@ implements ConnectionCallbacks, OnConnectionFailedListener, LocationListener{
               mMap.setMapType(MAP_TYPE_SATELLITE);
             }
         status = BroadcastDataReceiver.getStatus();
-        
+        startTime = BroadcastDataReceiver.getStartTime();
         setUpLocationClientIfNeeded();
         mLocationClient.connect();
     }
@@ -333,9 +341,10 @@ implements ConnectionCallbacks, OnConnectionFailedListener, LocationListener{
 	public void onLocationChanged(Location location) {
 		// TODO Auto-generated method stub
 		if(status){
-				
+				count++;
 				latitude = location.getLatitude();
 				longitude = location.getLongitude();
+				altitude = location.getAltitude();
 				
 				if(flag == 0 ){
 					 mMap.addMarker(new MarkerOptions()
@@ -349,15 +358,18 @@ implements ConnectionCallbacks, OnConnectionFailedListener, LocationListener{
 				//划线
 				drawRouteOnMap();
 				
-				//将记录下的点存入数据库
-				SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
-				String time = sf.format(new java.util.Date());
-				
+				//将记录下的点存入数据库				
 				LatLngData data = new LatLngData();		
 				data.setLat(latitude);
 				data.setLng(longitude);
-				data.setStartTime(time);
-			
+				data.setStartTime(startTime);
+				if(count==2){
+					AltitudeData alData = new AltitudeData();
+					alData.setTime(startTime);
+					alData.setAltitude((int)altitude);
+					mAltitudeDataService.addAltitudeData(alData);
+					count=0;
+				}
 				latLngDataService.addLatLngData(data);
 		}else{
 			if(flag == 1){

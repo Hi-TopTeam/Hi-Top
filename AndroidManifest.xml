@@ -45,10 +45,10 @@
         <meta-data
             android:name="com.amap.api.v2.apikey"
             android:value="6112b78474cea5f5f4c32bf0c77a1c59" />
-        <!-- GoogleMapAPI_Key   AIzaSyBT13bwR6ncEvDiw_ya9gCudY3wYy0K3Ls -->
+        <!-- GoogleMapAPI_Key -->
         <meta-data
             android:name="com.google.android.maps.v2.API_KEY"
-            android:value="AIzaSyC80CFyXKh6YFmh9hFzslv2fRvGTBtfuVA" />
+            android:value="AIzaSyAAeNYnXEYpoBPovmdNX_zY-uQ_gjJb3Qw" />
 
          <!-- 用户微信回调的 activity -->
         <activity android:name="socialShare.wxapi.WXEntryActivity"
