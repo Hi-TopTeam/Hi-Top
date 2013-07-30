@@ -41,7 +41,7 @@
         android:allowBackup="true"
         android:icon="@drawable/climblogo"
         android:label="@string/app_name"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme" >
         <meta-data
             android:name="com.amap.api.v2.apikey"
             android:value="6112b78474cea5f5f4c32bf0c77a1c59" />
@@ -50,11 +50,12 @@
             android:name="com.google.android.maps.v2.API_KEY"
             android:value="AIzaSyAAeNYnXEYpoBPovmdNX_zY-uQ_gjJb3Qw" />
 
-         <!-- 用户微信回调的 activity -->
-        <activity android:name="socialShare.wxapi.WXEntryActivity"
-                  android:label="@string/app_name" 
-                  android:exported="true"
-                  android:theme="@android:style/Theme.Translucent.NoTitleBar.Fullscreen">
+        <!-- 用户微信回调的 activity -->
+        <activity
+            android:name="socialShare.wxapi.WXEntryActivity"
+            android:exported="true"
+            android:label="@string/app_name"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar.Fullscreen" >
         </activity>
         <activity
             android:name="ui.activity.ActivityOfAF4Ad"
@@ -86,7 +87,7 @@
             </intent-filter>
         </receiver>
         <receiver android:name="ui.activity.weather.LatLngReceiver" >
-            <intent-filter >
+            <intent-filter>
                 <action android:name="LatLng" />
             </intent-filter>
         </receiver>
@@ -96,7 +97,7 @@
         <activity
             android:name="app.MainActivity"
             android:label="@string/app_name"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -111,8 +112,8 @@
         <activity
             android:name="ui.activity.gps.GpsObtainActivity"
             android:label="@string/title_activity_gps_obtain"
-            android:screenOrientation="portrait" 
-            android:theme="@style/AppTheme">
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme" >
         </activity>
         <activity
             android:name="ui.activity.gps.RecordActivity"
@@ -132,6 +133,11 @@
         <activity
             android:name="ui.activity.GoogleMap.GMapActivity"
             android:label="@string/title_activity_basemap"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name="ui.activity.weather.OptionActivity"
+            android:label="@string/thitle_activity_weather_option"
             android:screenOrientation="portrait" >
         </activity>
     </application>

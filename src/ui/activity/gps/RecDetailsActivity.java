@@ -249,9 +249,9 @@ public class RecDetailsActivity extends ActivityOfAF4Ad implements
 
 		// 设置分享内容
 		picContent = new ShareContent();
-		picContent.setContent("MyClimb:我刚刚登上了" + climbdata.getClimbName() + "!"
+		picContent.setContent("Hi-Top:我刚刚登上了" + climbdata.getClimbName() + "!"
 				+ "这是我的行程记录");
-		picContent.setTitle("MyClimb");
+		picContent.setTitle("Hi-Top");
 		picContent.setUrl("http://weibo.com/lovelss310");
 		// 设置删除键监听事件
 		iv_delete.setOnClickListener(new View.OnClickListener() {

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">MyClimb</string>
+    <string name="app_name">Hi-Top</string>
     <string name="menu_settings">Settings</string>
 
     <!-- Custom Add -->
@@ -40,6 +40,11 @@
     <string name="title_activity_record">RecordActivity</string>
     <string name="title_activity_rec_details">RecDetailsActivity</string>
     <string name="title_activity_basemap">地图</string>
+    <string name="search_label">Hi-Top</string>
+    <string name="province">选择省份</string>
+    <string name="city">选择城市</string>
+    <string name="menu_search">搜索</string>
+    <string name="thitle_activity_weather_option">OptionActivity</string>
     
 
 </resources>

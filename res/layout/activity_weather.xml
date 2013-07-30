@@ -10,7 +10,7 @@
         android:layout_height="wrap_content"
         android:layout_weight="0.26"
         android:background="@drawable/text_view_border" >
-        
+
         <TextView
             android:id="@+id/tv_todaydate"
             android:layout_width="wrap_content"
@@ -36,8 +36,36 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
-            android:layout_alignParentTop="true"
-            />
+            android:layout_alignParentTop="true" />
+
+        <RelativeLayout
+            android:id="@+id/RelativeLayout1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/tv_currentTemperature"
+            android:orientation="vertical" >
+
+            <TextView
+                android:id="@+id/tv_city"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textColor="@color/white"/>
+
+        </RelativeLayout>
+
+        <ImageView
+            android:id="@+id/option"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_alignTop="@+id/tv_todaydate"
+            android:layout_marginRight="24dp"
+            android:src="@drawable/option" />
 
     </RelativeLayout>
 
@@ -87,7 +115,6 @@
                 android:layout_alignTop="@+id/imageView1"
                 android:textColor="@color/white"
                 android:textSize="15sp" />
-
         </RelativeLayout>
 
         <RelativeLayout
@@ -132,9 +159,7 @@
                 android:layout_marginBottom="35dp"
                 android:layout_marginLeft="38dp"
                 android:src="@drawable/sunrise_icon" />
-
         </RelativeLayout>
-
     </LinearLayout>
 
     <LinearLayout
@@ -154,8 +179,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/tv_tomorrowdate"
                 android:layout_centerHorizontal="true"
-                android:layout_marginTop="18dp"
-                />
+                android:layout_marginTop="18dp" />
 
             <TextView
                 android:id="@+id/tv_tomorrowdate"
@@ -165,7 +189,6 @@
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="19dp"
                 android:textColor="@color/white" />
-
         </RelativeLayout>
 
         <RelativeLayout
@@ -201,15 +224,14 @@
                 android:textColor="@color/white"
                 android:textSize="15sp" />
 
-             <TextView
-                 android:id="@+id/tv_tomorrow_Temp"
-                 android:layout_width="wrap_content"
-                 android:layout_height="wrap_content"
-                 android:layout_alignBottom="@+id/imageView5"
-                 android:layout_centerHorizontal="true"
-                 android:textColor="@color/white"
-                 android:textSize="20sp" />
-
+            <TextView
+                android:id="@+id/tv_tomorrow_Temp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@+id/imageView5"
+                android:layout_centerHorizontal="true"
+                android:textColor="@color/white"
+                android:textSize="20sp" />
         </RelativeLayout>
     </LinearLayout>
 

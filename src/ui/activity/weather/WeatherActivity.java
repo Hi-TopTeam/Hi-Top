@@ -6,14 +6,18 @@ import java.util.List;
 
 import org.ksoap2.serialization.SoapObject;
 
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.GestureDetector;
 import android.view.Menu;
+import android.view.View;
 import android.view.GestureDetector.OnGestureListener;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.DreamTeam.HiTop.R;
 
@@ -38,19 +42,27 @@ public class WeatherActivity extends ActivityOfAF4Ad {
 	private TextView tv_tomorrow_windspeed = null;
 	private TextView today_sunrisetime = null;//
 	private TextView today_sunsettime = null;//
-
+	private ImageView iv_option = null; 
+	private TextView tv_city=null;
+	private String city=null;//查询城市名称
+	private int select;//查询天气模式
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_weather);
+		
+	}
+    
+	@Override
+	protected void onResume() {
+		super.onResume();
+		city = DataDeliver.getCity();
+		select = DataDeliver.getSelect();
 		SunriseAndSetAsyncTask calculate = new SunriseAndSetAsyncTask();
-		
-		
-		
 		RequireWeatherAsyncTask require = new RequireWeatherAsyncTask();
 		require.execute();
 		calculate.execute();
 	}
-    
+
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		getMenuInflater().inflate(R.menu.activity_weather, menu);
@@ -69,14 +81,24 @@ public class WeatherActivity extends ActivityOfAF4Ad {
 		// tv_currentTemperature = (TextView)
 		// findViewById(R.id.tv_currentTemperature);
 		// tv_tomorrow_Temp = (TextView) findViewById(R.id.tv_tomorrow_Temp);
+		tv_city =(TextView) findViewById(R.id.tv_city);
 		tv_tomorrow_windspeed = (TextView) findViewById(R.id.tv_tomorrow_windspeed);
 		tv_tomorrow_Temp = (TextView) findViewById(R.id.tv_tomorrow_Temp);
 
 		today_sunrisetime = (TextView) findViewById(R.id.today_sunrisetime);
 		today_sunsettime = (TextView) findViewById(R.id.today_sunsettime);
 		
-		
-		
+		iv_option = (ImageView) findViewById(R.id.option);
+		iv_option.setOnClickListener(new View.OnClickListener() {			
+			@Override
+			public void onClick(View v) {
+				Intent intent = new Intent(WeatherActivity.this,OptionActivity.class);
+				Bundle bundle = new Bundle();
+				bundle.putInt("select", select);
+				intent.putExtras(bundle);
+				startActivity(intent);
+			}
+		});
 
 	}
 
@@ -100,25 +122,30 @@ public class WeatherActivity extends ActivityOfAF4Ad {
 	}
 
 	// 多线程实现天气查询
-	class RequireWeatherAsyncTask extends AsyncTask<Void, Void, SoapObject> {
+	class RequireWeatherAsyncTask extends AsyncTask<String, Void, SoapObject> {
 
 		@Override
-		protected SoapObject doInBackground(Void... arg0) {
-			String city;
+		protected SoapObject doInBackground(String... arg0) {
+			if(select==0){
 			city = GeocodeService.getAddressByLatLng(LatLngReceiver.getLat(),
 					LatLngReceiver.getLng(), 2);
 			return WeatherService.getWeatherByCity(city);
+			}else if (select==1) {
+				return WeatherService.getWeatherByCity(city);
+			}
+			return null;
 		}
 
 		@Override
 		protected void onPostExecute(SoapObject detail) {
-			// TODO Auto-generated method stub
 			showWeather(detail);
 		}
 	}
 
 	private void showWeather(SoapObject detail) {
 		if (detail == null) {
+			Toast toast = Toast.makeText(this, "请检查网络连接", Toast.LENGTH_SHORT);
+			toast.show();
 			initModel();
 			return;
 		}
@@ -127,7 +154,7 @@ public class WeatherActivity extends ActivityOfAF4Ad {
 		String weatherCurrent = null;
 		int iconToday;
 		int iconTomorrow;
-		// int iconAfterday[] = new int[2];
+		city = detail.getProperty(1).toString();
 		// 获取天气实况
 		weatherCurrent = detail.getProperty(4).toString().substring(10, 13);
 		tv_currentTemperature.setText(weatherCurrent);
@@ -155,6 +182,7 @@ public class WeatherActivity extends ActivityOfAF4Ad {
 		iconTomorrow = parseIcon(detail.getProperty(15).toString());
 		tomorrowWhIcon.setImageResource(iconTomorrow);
 		// iconTomorrow[1] = parseIcon(detail.getProperty(16).toString());
+		tv_city.setText(city);
 
 	}
 
