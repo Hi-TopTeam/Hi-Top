@@ -159,9 +159,9 @@ public class WeatherActivity extends ActivityOfAF4Ad {
 		weatherCurrent = detail.getProperty(4).toString().substring(10, 13);
 		tv_currentTemperature.setText(weatherCurrent);
 		// 解析今天的天气情况
-		String date = detail.getProperty(7).toString();
-		weatherToday = "今天:" + date.split(" ")[0];
-		weatherToday = weatherToday + "  " + date.split(" ")[1];
+		String date = detail.getProperty(3).toString();
+		weatherToday = "今天:" + date;
+//		weatherToday = weatherToday + "  " + date.split(" ")[1];
 		tv_todaydate.setText(weatherToday);
 		weatherToday = detail.getProperty(8).toString();// 今日气温范围
 		tv_today_Temp.setText(weatherToday);
@@ -171,7 +171,7 @@ public class WeatherActivity extends ActivityOfAF4Ad {
 		todayWhIcon.setImageResource(iconToday);
 		// iconToday[1] = parseIcon(detail.getProperty(11).toString());
 		// 解析明天的天气情况
-		date = detail.getProperty(12).toString();
+		date = detail.getProperty(7).toString();
 		weatherTomorrow = "明天:" + date.split(" ")[0];
 		weatherTomorrow = weatherTomorrow + "  " + date.split(" ")[1];
 		tv_tomorrowdate.setText(weatherTomorrow);

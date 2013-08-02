@@ -88,7 +88,7 @@ public class OptionActivity extends Activity {
 			ArrayAdapter adapter_province;
 			List<String> list_province;
 			list_province = WeatherService.getProviceList();
-			adapter_province = new ArrayAdapter(OptionActivity.this,R.layout.option_item,R.id.option_item,list_province);
+			adapter_province = new ArrayAdapter(OptionActivity.this,R.layout.option_item,list_province);
 			sp_province.setAdapter(adapter_province);
 			sp_province.setOnItemSelectedListener(new spinner_provinceListen());
 		}

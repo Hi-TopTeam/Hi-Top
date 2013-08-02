@@ -312,6 +312,9 @@ public class GMapActivity extends FragmentActivity implements
 		mMap.setMyLocationEnabled(true);
 		mUiSettings = mMap.getUiSettings();
 		mMap.setLocationSource(new CurrentLocationProvider(this));
+		
+		
+		
 	}
 
 	private void drawRouteOnMap() {
@@ -328,6 +331,12 @@ public class GMapActivity extends FragmentActivity implements
 	@Override
 	public void onLocationChanged(Location location) {
 		// TODO Auto-generated method stub
+		LocationManager locationManager =(LocationManager) getSystemService(Context.LOCATION_SERVICE);
+		Location loc = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+		if(loc != null){
+			mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(loc.getLatitude(),loc.getLongitude()),
+					15));
+		}
 		if (status) {
 			count++;
 			latitude = location.getLatitude();
