@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/loginbackground" >
+
+    <Button
+        android:id="@+id/bt_cancel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/bt_ok"
+        android:layout_alignBottom="@+id/bt_ok"
+        android:layout_alignRight="@+id/et_repasswordconfirm"
+        android:text=" 取消"
+        android:textColor="@color/white" />
+
+    <EditText
+        android:id="@+id/et_rgpassword"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:background="@color/white"
+        android:ems="10"
+        android:hint="请输入密码"
+        android:inputType="textPassword"
+        android:textColor="@color/black" >
+
+        
+    </EditText>
+
+    <EditText
+        android:id="@+id/et_repasswordconfirm"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/et_rgpassword"
+        android:layout_below="@+id/et_rgpassword"
+        android:layout_marginTop="40dp"
+        android:background="@color/white"
+        android:ems="10"
+        android:hint="请再次输入密码"
+        android:inputType="textPassword"
+        android:textColor="@color/black" />
+
+    <EditText
+        android:id="@+id/et_rgnickname"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/et_rgpassword"
+        android:layout_alignLeft="@+id/et_rgpassword"
+        android:layout_marginBottom="30dp"
+        android:background="@color/white"
+        android:ems="10"
+        android:hint="请输入昵称"
+        android:textColor="@color/black" />
+
+    <EditText
+        android:id="@+id/et_rgusername"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/et_rgnickname"
+        android:layout_alignLeft="@+id/et_rgnickname"
+        android:layout_marginBottom="32dp"
+        android:background="@color/white"
+        android:ems="10"
+        android:hint="请输入邮箱地址"
+        android:textColor="@color/black" >
+        <requestFocus />
+        </EditText>
+    <Button
+        android:id="@+id/bt_ok"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/et_repasswordconfirm"
+        android:layout_below="@+id/et_repasswordconfirm"
+        android:layout_marginTop="45dp"
+        android:text="确认"
+        android:textColor="@color/white" />
+</RelativeLayout>

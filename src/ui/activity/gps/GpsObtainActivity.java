@@ -87,7 +87,7 @@ public class GpsObtainActivity extends ActivityOfAF4Ad implements
 	private double currentLon;// 当前经度
 	private double currentLat;// 当前纬度
 	private IClimbDataService climbDataService;// 定义登山数据服务对象
-	GestureDetector mGestureDetector = null; // 定义手势监听对象
+	private GestureDetector mGestureDetector = null; // 定义手势监听对象
 	private int verticalMinDistance = 10; // 最小触摸滑动距离
 	private int minVelocity = 0; // 最小水平移动速度
 	private ImageView iv_compass;
@@ -246,10 +246,10 @@ public class GpsObtainActivity extends ActivityOfAF4Ad implements
 
 		Location location = locManager
 				.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+		String str = LocationManager.NETWORK_PROVIDER;
 
 		// Location
 		// location=locManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
-
 		updateGpsView(location);
 		locManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 3000,
 				8, new LocationListener() {

@@ -42,7 +42,7 @@ public class WeatherActivity extends ActivityOfAF4Ad {
 	private TextView tv_tomorrow_windspeed = null;
 	private TextView today_sunrisetime = null;//
 	private TextView today_sunsettime = null;//
-	private ImageView iv_option = null; 
+	private ImageView iv_option = null;
 	private TextView tv_city=null;
 	private String city=null;//查询城市名称
 	private int select;//查询天气模式

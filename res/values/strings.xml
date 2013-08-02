@@ -45,6 +45,7 @@
     <string name="city">选择城市</string>
     <string name="menu_search">搜索</string>
     <string name="thitle_activity_weather_option">OptionActivity</string>
+    <string name="login">login</string>
     
 
 </resources>
