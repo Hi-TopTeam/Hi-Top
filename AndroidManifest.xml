@@ -94,7 +94,7 @@
         <uses-library android:name="android.test.runner" />
 
         <activity
-            android:name="app.NewMainActivity"
+            android:name="ui.activity.SystemManagement.LoginActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.PageIndicatorDefaults">
@@ -103,6 +103,22 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity
+            android:name="ui.activity.SystemManagement.RegisterActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity 
+            android:name="ui.activity.SystemManagement.ForgotPWDActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait">
+        </activity>
+         <activity
+            android:name="app.NewMainActivity"
+            android:label="@string/title_activity_default"
+            android:screenOrientation="portrait" 
+             android:theme="@style/Theme.PageIndicatorDefaults">
         </activity>
         <activity
             android:name="ui.activity.app.DefaultActivity"

@@ -46,13 +46,7 @@ public class WeatherFragment extends Fragment {
 	public void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
-		SunriseAndSetAsyncTask calculate = new SunriseAndSetAsyncTask();
 		
-		
-		
-		RequireWeatherAsyncTask require = new RequireWeatherAsyncTask();
-		require.execute();
-		calculate.execute();
 	}
 	
 	@Override
@@ -61,6 +55,13 @@ public class WeatherFragment extends Fragment {
 		// TODO Auto-generated method stub
 		layoutView=inflater.inflate(R.layout.activity_weather, container, false);
 		initControlsAndRegEvent();
+		SunriseAndSetAsyncTask calculate = new SunriseAndSetAsyncTask();
+		
+		
+		
+		RequireWeatherAsyncTask require = new RequireWeatherAsyncTask();
+		require.execute();
+		calculate.execute();
 		return layoutView;
 	}
 	

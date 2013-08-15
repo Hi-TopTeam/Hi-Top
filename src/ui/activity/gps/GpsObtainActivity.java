@@ -72,6 +72,7 @@ public class GpsObtainActivity extends ActivityOfAF4Ad implements
 	private Builder builder;
 	private EditText editor;// 对话框文本输入控件
 	private LocationManager locManager;// 定义LocationManager对象
+	
 	private String cliName;// 行程名称
 	private Chronometer timer;// 定义计时器
 	private Date startTime;// 记录开始时间
