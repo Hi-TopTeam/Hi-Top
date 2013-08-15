@@ -94,9 +94,10 @@
         <uses-library android:name="android.test.runner" />
 
         <activity
-            android:name="app.MainActivity"
+            android:name="app.NewMainActivity"
             android:label="@string/app_name"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.PageIndicatorDefaults">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
