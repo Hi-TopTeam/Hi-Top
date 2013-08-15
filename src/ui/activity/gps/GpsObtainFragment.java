@@ -290,12 +290,18 @@ public class GpsObtainFragment extends Fragment {
 		***************************************************/
 	/**/
 		public void startGps() {
-		locManager = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
+			locManager = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
+			Location location = locManager
+					.getLastKnownLocation(LocationManager.GPS_PROVIDER);
 
+		// Location
+			location=locManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+
+			updateGpsView(location);
 		  //networkListner=new MyLocationListner();
 	      //locManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 1000, 0, networkListner);
-	      gpsListener=new MyLocationListner();
-	      locManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 3000, 0, gpsListener);
+			gpsListener=new MyLocationListner();
+			locManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 3000, 0, gpsListener);
 
 		}
 		

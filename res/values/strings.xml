@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">MyClimb</string>
+    <string name="app_name">Hi-Top</string>
     <string name="menu_settings">Settings</string>
 
     <!-- Custom Add -->
@@ -35,7 +35,7 @@
     <string name="btnImpText">从本机导入数据库</string>
     <string name="hello_world">欢迎登录主界面!</string>
     <string name="title_activity_default_actitity">DefaultActitity</string>
-    <string name="title_activity_default">DefaultActivity</string>
+    <string name="title_activity_default">Hi-Top</string>
     <string name="title_activity_gps_obtain">GpsObtainActivity</string>
     <string name="title_activity_record">RecordActivity</string>
     <string name="title_activity_rec_details">RecDetailsActivity</string>
