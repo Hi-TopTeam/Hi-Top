@@ -11,6 +11,7 @@ import com.DreamTeam.HiTop.R;
 
 import foundation.webservice.GeocodeService;
 import foundation.webservice.WeatherService;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -19,6 +20,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class WeatherFragment extends Fragment {
 	private ImageView todayWhIcon = null;
@@ -32,6 +34,11 @@ public class WeatherFragment extends Fragment {
 	private TextView tv_tomorrow_windspeed = null;
 	private TextView today_sunrisetime = null;//
 	private TextView today_sunsettime = null;//
+	
+	private ImageView iv_option = null;
+	private TextView tv_city=null;
+	private String city=null;//查询城市名称
+	private int select;//查询天气模式
 	
 	private View layoutView;
 	private double Lat;
@@ -47,12 +54,15 @@ public class WeatherFragment extends Fragment {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		
+		
 	}
 	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
+		city = DataDeliver.getCity();
+		select = DataDeliver.getSelect();
 		layoutView=inflater.inflate(R.layout.activity_weather, container, false);
 		initControlsAndRegEvent();
 		SunriseAndSetAsyncTask calculate = new SunriseAndSetAsyncTask();
@@ -82,6 +92,17 @@ public class WeatherFragment extends Fragment {
 		today_sunrisetime = (TextView) layoutView.findViewById(R.id.today_sunrisetime);
 		today_sunsettime = (TextView) layoutView.findViewById(R.id.today_sunsettime);
 		
+		iv_option = (ImageView) layoutView.findViewById(R.id.option);
+		iv_option.setOnClickListener(new View.OnClickListener() {			
+			@Override
+			public void onClick(View v) {
+				Intent intent = new Intent(getActivity(),OptionActivity.class);
+				//Bundle bundle = new Bundle();
+				//bundle.putInt("select", select);
+				//intent.putExtras(bundle);
+				startActivity(intent);
+			}
+		});
 		Bundle bundle=getArguments();
 		if(bundle!=null)
 		{
@@ -102,23 +123,32 @@ public class WeatherFragment extends Fragment {
 
 			@Override
 			protected SoapObject doInBackground(Void... arg0) {
-				String city;
+				//String city;
 				//city = GeocodeService.getAddressByLatLng(LatLngReceiver.getLat(),
 				//		LatLngReceiver.getLng(), 2);
-				city = GeocodeService.getAddressByLatLng(Lat,
-								Lng, 2);
-				return WeatherService.getWeatherByCity(city);
+				//city = GeocodeService.getAddressByLatLng(Lat,
+				//				Lng, 2);
+				//return WeatherService.getWeatherByCity(city);
+				if(select==0){
+					city = GeocodeService.getAddressByLatLng(Lat,
+									Lng, 2);
+					return WeatherService.getWeatherByCity(city);
+				}else if (select==1) {
+						return WeatherService.getWeatherByCity(city);
+				}
+				return null;
 			}
 
 			@Override
 			protected void onPostExecute(SoapObject detail) {
 				// TODO Auto-generated method stub
-				showWeather(detail);
+				//showWeather(detail);
 			}
 		}
 		private void showWeather(SoapObject detail) {
 			if (detail == null) {
-				
+				Toast toast = Toast.makeText(getActivity(), "请检查网络连接", Toast.LENGTH_SHORT);
+				toast.show();
 				return;
 			}
 			String weatherToday = null;
@@ -126,14 +156,15 @@ public class WeatherFragment extends Fragment {
 			String weatherCurrent = null;
 			int iconToday;
 			int iconTomorrow;
+			city = detail.getProperty(1).toString();
 			// int iconAfterday[] = new int[2];
 			// 获取天气实况
 			weatherCurrent = detail.getProperty(4).toString().substring(10, 13);
 			tv_currentTemperature.setText(weatherCurrent);
 			// 解析今天的天气情况
-			String date = detail.getProperty(7).toString();
+			String date = detail.getProperty(3).toString();
 			weatherToday = "今天:" + date.split(" ")[0];
-			weatherToday = weatherToday + "  " + date.split(" ")[1];
+//			weatherToday = weatherToday + "  " + date.split(" ")[1];
 			tv_todaydate.setText(weatherToday);
 			weatherToday = detail.getProperty(8).toString();// 今日气温范围
 			tv_today_Temp.setText(weatherToday);
@@ -143,7 +174,7 @@ public class WeatherFragment extends Fragment {
 			todayWhIcon.setImageResource(iconToday);
 			// iconToday[1] = parseIcon(detail.getProperty(11).toString());
 			// 解析明天的天气情况
-			date = detail.getProperty(12).toString();
+			date = detail.getProperty(7).toString();
 			weatherTomorrow = "明天:" + date.split(" ")[0];
 			weatherTomorrow = weatherTomorrow + "  " + date.split(" ")[1];
 			tv_tomorrowdate.setText(weatherTomorrow);
@@ -154,7 +185,7 @@ public class WeatherFragment extends Fragment {
 			iconTomorrow = parseIcon(detail.getProperty(15).toString());
 			tomorrowWhIcon.setImageResource(iconTomorrow);
 			// iconTomorrow[1] = parseIcon(detail.getProperty(16).toString());
-
+			tv_city.setText(city);
 		}
 
 		// 工具方法，该方法负责把返回的天气图标字符串。转换为程序的图片资源ID
@@ -231,15 +262,15 @@ public class WeatherFragment extends Fragment {
 		}
 		
 		class SunriseAndSetAsyncTask extends AsyncTask<Void,Void,Date[]>{
-			private double lat;
-			private double lng;
+			//private double lat;
+			//private double lng;
 			@Override
 			protected Date[] doInBackground(Void... params) {
-				lat = LatLngReceiver.getLat();
-				lng = LatLngReceiver.getLng();
+				//Lat = LatLngReceiver.getLat();
+				//Lng = LatLngReceiver.getLng();
 				Date now = new Date();
 				Date[] riseSet = new Date[2];
-				SunriseSunset sunriseSunset = new SunriseSunset(lat, lng, now, 0);
+				SunriseSunset sunriseSunset = new SunriseSunset(Lat, Lng, now, 0);
 				riseSet[0]=sunriseSunset.getSunrise();
 				riseSet[1]=sunriseSunset.getSunset();		
 				return riseSet;

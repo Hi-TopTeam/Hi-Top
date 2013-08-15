@@ -151,6 +151,11 @@
             android:label="@string/title_activity_basemap"
             android:screenOrientation="portrait" >
         </activity>
+        <activity
+            android:name="ui.activity.weather.OptionActivity"
+            android:label="@string/thitle_activity_weather_option"
+            android:screenOrientation="portrait" >
+        </activity>
     </application>
 
 </manifest>
