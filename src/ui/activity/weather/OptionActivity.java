@@ -90,6 +90,7 @@ public class OptionActivity extends Activity {
 			List<String> list_province;
 			list_province = WeatherService.getProviceList();
 			adapter_province = new ArrayAdapter(OptionActivity.this,R.layout.option_item,list_province);
+			adapter_province.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 			sp_province.setAdapter(adapter_province);
 			sp_province.setOnItemSelectedListener(new spinner_provinceListen());
 		}
