@@ -15,6 +15,8 @@ import org.achartengine.renderer.XYSeriesRenderer;
 
 import socialShare.SocialShareConfig;
 import ui.activity.GoogleMap.GMapActivity;
+
+import ui.activity.GoogleMap.NewGMapFragment;
 import ui.viewModel.ModelErrorInfo;
 import ui.viewModel.ViewModel;
 
@@ -41,6 +43,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.view.Display;
 import android.view.GestureDetector;
 import android.view.KeyEvent;
@@ -279,13 +282,20 @@ public class RecDetailsFragment extends Fragment {
 
 			@Override
 			public void onClick(View v) {
-				//Intent intent = new Intent(RecDetailsActivity.this,
-				//		GMapActivity.class);
-				//Bundle bundle = new Bundle();
-				//bundle.putString("time", strTime);
-				//bundle.putString("Marker", Name);
-				//intent.putExtras(bundle);
-				//startActivity(intent);
+				FragmentTransaction ft=getFragmentManager().beginTransaction();
+				
+				NewGMapFragment map=NewGMapFragment.newInstance();
+				Bundle bundle=new Bundle();
+				bundle.putString("time", strTime);
+				bundle.putString("Marker", Name);
+				map.setArguments(bundle);
+				ft.remove(getActivity().getSupportFragmentManager().findFragmentById(getId()));
+				ft.addToBackStack(null);
+				ft.commit();
+				NewMainActivity activity=(NewMainActivity) getActivity();
+				activity.indicator.setCurrentItem(2);
+				
+				
 			}
 		});
 

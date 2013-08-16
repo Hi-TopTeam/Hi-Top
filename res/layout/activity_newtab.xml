@@ -20,6 +20,12 @@
         android:layout_width="fill_parent"
         android:layout_height="0dp"
         />
+    <fragment android:name="ui.activity.GoogleMap.NewGMapFragment"
+        android:id="@+id/mapfragment"
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        />
+    
     
 
 </LinearLayout>

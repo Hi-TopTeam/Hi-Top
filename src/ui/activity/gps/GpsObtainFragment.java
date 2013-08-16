@@ -96,6 +96,7 @@ public class GpsObtainFragment extends Fragment {
 	
 	private View layoutView;
 	onLocateWeatherListener weatherlistener;
+	locateOnMap maplistener;
 	
 	public static GpsObtainFragment newInstance()
 	{
@@ -226,68 +227,30 @@ public class GpsObtainFragment extends Fragment {
 
 	}
 	// 发送开始状态广播给GoogleMap
-	/**************************************************
+	
 	public void sendStartStatusToGMap() {
 		String strTime;
 		SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		strTime = sf.format(startTime);
-		Intent intent = new Intent();
+		/*Intent intent = new Intent();
 		intent.setAction("status");
 		intent.putExtra("status", true);
 		intent.putExtra("startTime", strTime);
-		sendBroadcast(intent);
+		sendBroadcast(intent);*/
+		maplistener.sendStartStatusToGMap(strTime,true);
 	}
-	***************************************************/
-	/**************************************************
+	/***************************************************/
+	
 	// 发送结束状态广播给GoogleMap
 	public void sendStopStatusToGMap() {
-		Intent intent = new Intent();
+		/*Intent intent = new Intent();
 		intent.setAction("status");
 		intent.putExtra("status", false);
-		sendBroadcast(intent);
+		sendBroadcast(intent);*/
+		maplistener.sendStopStatusToGMap(false);
 	}
 	
 	
-	// 开启GPS功能
-		public void startGps() {
-			locManager = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
-
-			Location location = locManager
-					.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-
-			// Location
-			// location=locManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
-
-			updateGpsView(location);
-			locManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 3000,
-					8, new LocationListener() {
-
-						@Override
-						public void onStatusChanged(String provider, int status,
-								Bundle extras) {
-
-						}
-
-						@Override
-						public void onProviderEnabled(String provider) {
-							updateGpsView(locManager.getLastKnownLocation(provider));
-
-						}
-
-						@Override
-						public void onProviderDisabled(String provider) {
-							updateGpsView(null);
-
-						}
-
-						@Override
-						public void onLocationChanged(Location location) {
-							updateGpsView(location);
-
-						}
-					});
-		}
-		***************************************************/
 	/**/
 		public void startGps() {
 			locManager = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
@@ -556,16 +519,22 @@ public class GpsObtainFragment extends Fragment {
 			public void onLocateLatAndLng(double Lat,double Lng);
 		}
 		
+		public interface locateOnMap{
+			public void sendStopStatusToGMap(boolean status);
+			public void sendStartStatusToGMap(String Time,boolean status);
+		}
+		
 		@Override
 		public void onAttach(Activity activity) {
 			// TODO Auto-generated method stub
 			super.onAttach(activity);
 			try{
 				weatherlistener=(onLocateWeatherListener)activity;
+				maplistener=(locateOnMap)activity;
 			}
 			catch(ClassCastException e)
 			{
-				throw new ClassCastException(activity.toString()+"must implement onLocateWeatherListener");
+				throw new ClassCastException(activity.toString()+"must implement onLocateWeatherListener and locateOnMap");
 			}
 		}
 

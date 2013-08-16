@@ -3,6 +3,8 @@ package app;
 
 import java.util.List;
 
+import ui.activity.GoogleMap.NewGMapFragment;
+import ui.activity.gps.GpsObtainFragment.locateOnMap;
 import ui.activity.gps.GpsObtainFragment.onLocateWeatherListener;
 import ui.activity.weather.WeatherFragment;
 import android.os.Bundle;
@@ -20,7 +22,7 @@ import domain.businessEntity.gps.ClimbData;
 import domain.businessService.gps.ClimbDataService;
 import domain.businessService.gps.IClimbDataService;
 
-public class NewMainActivity extends FragmentActivity implements onLocateWeatherListener{
+public class NewMainActivity extends FragmentActivity implements onLocateWeatherListener,locateOnMap{
 	public FragmentStatePagerAdapter adapter;
 	public ViewPager pager;
 	public TabPageIndicator indicator;
@@ -68,6 +70,43 @@ public class NewMainActivity extends FragmentActivity implements onLocateWeather
 		}
 		
 		
+	}
+
+	@Override
+	public void sendStopStatusToGMap(boolean status) {
+		// TODO Auto-generated method stub
+		NewGMapFragment map=(NewGMapFragment) getSupportFragmentManager().findFragmentById(R.id.mapfragment);
+		if(map!=null)
+		{
+			map.setStatus(status);
+		}
+		else{
+			NewGMapFragment newFragment=new NewGMapFragment();
+			Bundle bundle=new Bundle();
+			bundle.putBoolean("status", status);
+			bundle.putString("time", null);
+			newFragment.setArguments(bundle);
+			
+		}
+	}
+
+	@Override
+	public void sendStartStatusToGMap(String Time, boolean status) {
+		// TODO Auto-generated method stub
+		NewGMapFragment map=(NewGMapFragment) getSupportFragmentManager().findFragmentById(R.id.mapfragment);
+		if(map!=null)
+		{
+			map.setStatus(status);
+			map.setStarTime(Time);
+		}
+		else{
+			NewGMapFragment newFragment=new NewGMapFragment();
+			Bundle bundle=new Bundle();
+			bundle.putBoolean("status", status);
+			bundle.putString("time", Time);
+			newFragment.setArguments(bundle);
+			
+		}
 	}
 	
 	

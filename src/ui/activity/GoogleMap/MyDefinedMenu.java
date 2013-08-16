@@ -6,8 +6,8 @@ package ui.activity.GoogleMap;
 
 import java.util.List;
 
-import ui.activity.GoogleMap.GMapActivity.ItemClickEventGmap;
 
+import ui.activity.GoogleMap.NewGMapFragment.ItemClickEventGmap;
 import android.content.Context;
 import android.graphics.Color;
 import android.view.View;
