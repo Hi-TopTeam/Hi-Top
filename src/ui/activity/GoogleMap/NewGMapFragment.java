@@ -10,6 +10,7 @@ import java.util.List;
 
 
 
+
 import ui.activity.gps.CurrentLocationProvider;
 import android.content.Context;
 import android.graphics.Color;
@@ -36,6 +37,7 @@ import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.UiSettings;
 import com.google.android.gms.maps.model.LatLng;
@@ -96,13 +98,13 @@ public class NewGMapFragment extends Fragment implements ConnectionCallbacks,
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		
-		if (savedInstanceState == null) {
+		/*if (savedInstanceState == null) {
 			// 第一次得到该 Fragment.
 			mapFragment.setRetainInstance(true);
 		} else {
 			// 当重启该Activity 时候，不需要要在重新实例化 就可以得到之前的activity
 			mMap = mapFragment.getMap();
-		}
+		}*/
 		
 	}
 	@Override
@@ -110,8 +112,10 @@ public class NewGMapFragment extends Fragment implements ConnectionCallbacks,
 			Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		layoutView=inflater.inflate(R.layout.activity_googlemap, container, false);
-		mapFragment = (SupportMapFragment) getActivity().getSupportFragmentManager()
-				.findFragmentById(R.id.mapGoogle);
+		//mapFragment = (MapFragment) getActivity().getSupportFragmentManager()
+		//		.findFragmentById(R.id.mapGoogle);
+		mapFragment=(SupportMapFragment)getActivity().getSupportFragmentManager().findFragmentById(R.id.mapGoogle);
+			
 		Bundle bundle=getArguments();
 		 if(bundle!=null)
 		 {
@@ -125,8 +129,8 @@ public class NewGMapFragment extends Fragment implements ConnectionCallbacks,
 		
 		setUpMapIfNeeded();
 
-		mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(29, 113),
-				2));
+		//mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(29, 113),
+		//		2));
 
 		setRecRoute();
 		//initPopupWindow();
@@ -420,6 +424,7 @@ public class NewGMapFragment extends Fragment implements ConnectionCallbacks,
 	public static NewGMapFragment newInstance() {
 		// TODO Auto-generated method stub
 		NewGMapFragment fragment=new NewGMapFragment();
+		
 		return fragment;
 	}
 

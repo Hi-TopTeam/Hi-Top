@@ -19,7 +19,7 @@ import android.support.v4.view.PagerAdapter;
 import android.view.ViewGroup;
 
 public class FragmentAdapter extends FragmentStatePagerAdapter {
-	private static final String[] CONTENT = new String[] { "GPS", "地图", "历史记录", "天气"};//,"社区","更多"
+	private static final String[] CONTENT = new String[] { "GPS", "历史记录", "天气", "地图"};//,"社区","更多"
 	private int mCount=CONTENT.length;
 	private IClimbDataService dateService;
 	private ArrayList<Fragment> fragments; 
@@ -68,9 +68,9 @@ public class FragmentAdapter extends FragmentStatePagerAdapter {
 		case 1: 
 			return RecordFragment.newInstance();
 		case 2:
-			return NewGMapFragment.newInstance();
-		case 3:
 			return WeatherFragment.newInstance();
+		case 3:
+			return NewGMapFragment.newInstance();
 		}
 		return null;
 		

@@ -96,7 +96,7 @@ public class GpsObtainFragment extends Fragment {
 	
 	private View layoutView;
 	onLocateWeatherListener weatherlistener;
-	locateOnMap maplistener;
+//	locateOnMap maplistener;
 	
 	public static GpsObtainFragment newInstance()
 	{
@@ -227,29 +227,22 @@ public class GpsObtainFragment extends Fragment {
 
 	}
 	// 发送开始状态广播给GoogleMap
-	
+	/*
 	public void sendStartStatusToGMap() {
 		String strTime;
 		SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		strTime = sf.format(startTime);
-		/*Intent intent = new Intent();
-		intent.setAction("status");
-		intent.putExtra("status", true);
-		intent.putExtra("startTime", strTime);
-		sendBroadcast(intent);*/
+		
 		maplistener.sendStartStatusToGMap(strTime,true);
 	}
-	/***************************************************/
+	
 	
 	// 发送结束状态广播给GoogleMap
 	public void sendStopStatusToGMap() {
-		/*Intent intent = new Intent();
-		intent.setAction("status");
-		intent.putExtra("status", false);
-		sendBroadcast(intent);*/
+		
 		maplistener.sendStopStatusToGMap(false);
 	}
-	
+	**************************************************/
 	
 	/**/
 		public void startGps() {
@@ -518,11 +511,11 @@ public class GpsObtainFragment extends Fragment {
 		public interface onLocateWeatherListener{
 			public void onLocateLatAndLng(double Lat,double Lng);
 		}
-		
+		/*
 		public interface locateOnMap{
 			public void sendStopStatusToGMap(boolean status);
 			public void sendStartStatusToGMap(String Time,boolean status);
-		}
+		}*/
 		
 		@Override
 		public void onAttach(Activity activity) {
@@ -530,7 +523,7 @@ public class GpsObtainFragment extends Fragment {
 			super.onAttach(activity);
 			try{
 				weatherlistener=(onLocateWeatherListener)activity;
-				maplistener=(locateOnMap)activity;
+				//maplistener=(locateOnMap)activity;
 			}
 			catch(ClassCastException e)
 			{

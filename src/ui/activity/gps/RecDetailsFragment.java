@@ -282,6 +282,7 @@ public class RecDetailsFragment extends Fragment {
 
 			@Override
 			public void onClick(View v) {
+				/*
 				FragmentTransaction ft=getFragmentManager().beginTransaction();
 				
 				NewGMapFragment map=NewGMapFragment.newInstance();
@@ -294,7 +295,7 @@ public class RecDetailsFragment extends Fragment {
 				ft.commit();
 				NewMainActivity activity=(NewMainActivity) getActivity();
 				activity.indicator.setCurrentItem(2);
-				
+				*/
 				
 			}
 		});
