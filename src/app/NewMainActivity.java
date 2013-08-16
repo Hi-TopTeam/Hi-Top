@@ -4,7 +4,7 @@ package app;
 import java.util.List;
 
 import ui.activity.GoogleMap.NewGMapFragment;
-
+import ui.activity.gps.GpsObtainFragment.locateOnMap;
 import ui.activity.gps.GpsObtainFragment.onLocateWeatherListener;
 import ui.activity.weather.WeatherFragment;
 import android.os.Bundle;
@@ -21,8 +21,8 @@ import com.viewpagerindicator.TabPageIndicator;
 import domain.businessEntity.gps.ClimbData;
 import domain.businessService.gps.ClimbDataService;
 import domain.businessService.gps.IClimbDataService;
-//,locateOnMap
-public class NewMainActivity extends FragmentActivity implements onLocateWeatherListener{
+//
+public class NewMainActivity extends FragmentActivity implements onLocateWeatherListener,locateOnMap{
 	public FragmentStatePagerAdapter adapter;
 	public ViewPager pager;
 	public TabPageIndicator indicator;
@@ -71,11 +71,11 @@ public class NewMainActivity extends FragmentActivity implements onLocateWeather
 		
 		
 	}
-/*
+
 	@Override
 	public void sendStopStatusToGMap(boolean status) {
 		// TODO Auto-generated method stub
-		NewGMapFragment map=(NewGMapFragment) getSupportFragmentManager().findFragmentById(R.id.mapfragment);
+		NewGMapFragment map=(NewGMapFragment) getSupportFragmentManager().findFragmentByTag("地图");
 		if(map!=null)
 		{
 			map.setStatus(status);
@@ -93,7 +93,7 @@ public class NewMainActivity extends FragmentActivity implements onLocateWeather
 	@Override
 	public void sendStartStatusToGMap(String Time, boolean status) {
 		// TODO Auto-generated method stub
-		NewGMapFragment map=(NewGMapFragment) getSupportFragmentManager().findFragmentById(R.id.mapfragment);
+		NewGMapFragment map=(NewGMapFragment) getSupportFragmentManager().findFragmentByTag("地图");
 		if(map!=null)
 		{
 			map.setStatus(status);
@@ -108,7 +108,6 @@ public class NewMainActivity extends FragmentActivity implements onLocateWeather
 			
 		}
 	}
-	*/
 	
 	
 
