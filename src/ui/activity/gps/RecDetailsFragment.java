@@ -14,8 +14,8 @@ import org.achartengine.renderer.XYMultipleSeriesRenderer;
 import org.achartengine.renderer.XYSeriesRenderer;
 
 import socialShare.SocialShareConfig;
+import ui.activity.GoogleMap.DetailToMap;
 import ui.activity.GoogleMap.GMapActivity;
-
 import ui.activity.GoogleMap.NewGMapFragment;
 import ui.viewModel.ModelErrorInfo;
 import ui.viewModel.ViewModel;
@@ -283,19 +283,10 @@ public class RecDetailsFragment extends Fragment {
 			@Override
 			public void onClick(View v) {
 				
-				FragmentTransaction ft=getFragmentManager().beginTransaction();
-				
-				NewGMapFragment map=NewGMapFragment.newInstance();
-				Bundle bundle=new Bundle();
-				bundle.putString("time", strTime);
-				bundle.putString("Marker", Name);
-				map.setArguments(bundle);
-				ft.remove(getActivity().getSupportFragmentManager().findFragmentById(getId()));
-				ft.addToBackStack(null);
-				ft.commit();
+				DetailToMap.setMarker(Name);
+				DetailToMap.setStrTime(strTime);
 				NewMainActivity activity=(NewMainActivity) getActivity();
 				activity.indicator.setCurrentItem(3);//3是地图界面
-				
 				
 			}
 		});

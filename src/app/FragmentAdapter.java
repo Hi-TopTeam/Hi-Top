@@ -3,6 +3,8 @@ package app;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.google.android.gms.maps.SupportMapFragment;
+
 import domain.businessEntity.gps.ClimbData;
 import domain.businessService.gps.ClimbDataService;
 import domain.businessService.gps.IClimbDataService;
@@ -71,6 +73,8 @@ public class FragmentAdapter extends FragmentStatePagerAdapter {
 			return WeatherFragment.newInstance();
 		case 3:
 			return NewGMapFragment.newInstance();
+			
+			
 		}
 		return null;
 		

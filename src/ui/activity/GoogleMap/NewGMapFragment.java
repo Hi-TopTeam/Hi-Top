@@ -11,6 +11,8 @@ import java.util.List;
 
 
 
+
+
 import ui.activity.gps.CurrentLocationProvider;
 import android.content.Context;
 import android.graphics.Color;
@@ -18,6 +20,8 @@ import android.location.Location;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -52,7 +56,7 @@ import domain.businessService.gps.IAltitudeDataService;
 import domain.businessService.gps.ILatLngDataService;
 import domain.businessService.gps.LatLngDataService;
 
-public class NewGMapFragment extends Fragment implements ConnectionCallbacks,
+public class NewGMapFragment extends SupportMapFragment implements ConnectionCallbacks,
 		OnConnectionFailedListener, LocationListener {
 	private Polyline mMutablePolyline;
 	// 经纬度
@@ -88,12 +92,7 @@ public class NewGMapFragment extends Fragment implements ConnectionCallbacks,
 			.setInterval(60000) // 60 seconds
 			.setFastestInterval(20) // 16ms = 60fps
 			.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
-	
-	private View layoutView;
-	private SupportMapFragment mapFragment;
-
-	
-	 @Override
+	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
@@ -111,18 +110,7 @@ public class NewGMapFragment extends Fragment implements ConnectionCallbacks,
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
-		layoutView=inflater.inflate(R.layout.activity_googlemap, container, false);
-		//mapFragment = (MapFragment) getActivity().getSupportFragmentManager()
-		//		.findFragmentById(R.id.mapGoogle);
-		mapFragment=(SupportMapFragment)getActivity().getSupportFragmentManager().findFragmentById(R.id.mapGoogle);
-			
-		Bundle bundle=getArguments();
-		 if(bundle!=null)
-		 {
-			 this.status=bundle.getBoolean("status");
-			 if(bundle.getString("time")!=null)
-				 this.strTime=bundle.getString("time");
-		 }
+		
 		latLngDataService = new LatLngDataService();
 		mAltitudeDataService = new AltitudeDataService();
 		
@@ -136,17 +124,12 @@ public class NewGMapFragment extends Fragment implements ConnectionCallbacks,
 		//initPopupWindow();
 		
 		
-		return layoutView;
+		return super.onCreateView(inflater, container, savedInstanceState);
 	}
 	
-	public void setStatus(boolean status)
-	{
-		this.status=status;
-	}
-	public void setStarTime(String time)
-	{
-		this.strTime=time;
-	}
+	
+	
+	
 	
 	
 	
@@ -223,7 +206,7 @@ public class NewGMapFragment extends Fragment implements ConnectionCallbacks,
 			myMenu.dismiss(); // 对话框消失
 			myMenu.currentState = 1; // 标记状态，已消失
 		} else {
-			myMenu.showAtLocation(mapFragment.getView(), Gravity.BOTTOM,
+			myMenu.showAtLocation(getView(), Gravity.BOTTOM,
 					0, 0);
 			myMenu.currentState = 0; // 标记状态，显示中
 		}
@@ -240,9 +223,10 @@ public class NewGMapFragment extends Fragment implements ConnectionCallbacks,
 
 	public void setRecRoute() {
 		// 获取由RecDetailsActivity传过来的位置信息
-		Bundle bundle =getArguments();
-		if (bundle != null) {
-			strTime = bundle.getString("time");
+		strTime=DetailToMap.getStrTime();
+		
+		if (strTime != null) {
+			
 			dataList = latLngDataService.getLatLngDataByTime(strTime);
 
 			Iterator<LatLngData> it = dataList.iterator();
@@ -286,6 +270,8 @@ public class NewGMapFragment extends Fragment implements ConnectionCallbacks,
 		status = BroadcastDataReceiver.getStatus();
 		startTime = BroadcastDataReceiver.getStartTime();
 		*********************************/
+		status=GpsToMapReceiver.getStatus();
+		startTime=GpsToMapReceiver.getStartTime();
 		setUpLocationClientIfNeeded();
 		mLocationClient.connect();
 	}
@@ -326,8 +312,11 @@ public class NewGMapFragment extends Fragment implements ConnectionCallbacks,
 
 	private void setUpMapIfNeeded() {
 		if (mMap == null) {
-			mMap = ((SupportMapFragment)  getActivity().getSupportFragmentManager()
-					.findFragmentById(R.id.mapGoogle)).getMap();
+			//mapFragment = (SupportMapFragment)  getActivity().getSupportFragmentManager()
+			//		.findFragmentByTag("map");
+			mMap=getMap();
+			//mMap = ((SupportMapFragment)  getActivity().getSupportFragmentManager().findFragmentById(R.id.mapGoogle)).getMap();
+			//mMap=mapFragment.getMap();
 			if (mMap != null) {
 				setUpMap();
 			}

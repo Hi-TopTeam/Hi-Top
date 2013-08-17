@@ -15,16 +15,12 @@
         android:layout_height="0dp"
         android:layout_weight="1"
         />
-    <fragment android:name="ui.activity.weather.WeatherFragment"
-        android:id="@+id/weatherfragment"
-        android:layout_width="fill_parent"
-        android:layout_height="0dp"
-        />
-     <fragment android:name="ui.activity.gps.GpsObtainFragment"
-        android:id="@+id/gpsfragment"
-        android:layout_width="fill_parent"
-        android:layout_height="0dp"
-        />
+    <fragment 
+        android:name="ui.activity.weather.WeatherFragment"
+         android:id="@+id/weatherfragment" 
+         android:layout_width="0dp" 
+         android:layout_height="0dp" />
+    
      
      
     

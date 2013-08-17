@@ -41,8 +41,8 @@ public class WeatherFragment extends Fragment {
 	private int select;//查询天气模式
 	
 	private View layoutView;
-	private double Lat;
-	private double Lng;
+	
+	
 	
 	public static WeatherFragment newInstance(){
 		WeatherFragment fragment=new WeatherFragment();
@@ -61,17 +61,20 @@ public class WeatherFragment extends Fragment {
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
-		city = DataDeliver.getCity();
-		select = DataDeliver.getSelect();
-		layoutView=inflater.inflate(R.layout.activity_weather, container, false);
-		initControlsAndRegEvent();
-		SunriseAndSetAsyncTask calculate = new SunriseAndSetAsyncTask();
+		if(layoutView==null)
+		{
+			city = DataDeliver.getCity();
+			select = DataDeliver.getSelect();
+			layoutView=inflater.inflate(R.layout.activity_weather, container, false);
+			initControlsAndRegEvent();
+			SunriseAndSetAsyncTask calculate = new SunriseAndSetAsyncTask();
 		
 		
 		
-		RequireWeatherAsyncTask require = new RequireWeatherAsyncTask();
-		require.execute();
-		calculate.execute();
+			RequireWeatherAsyncTask require = new RequireWeatherAsyncTask();
+			require.execute();
+			calculate.execute();
+		}
 		return layoutView;
 	}
 	
@@ -97,41 +100,26 @@ public class WeatherFragment extends Fragment {
 			@Override
 			public void onClick(View v) {
 				Intent intent = new Intent(getActivity(),OptionActivity.class);
-				//Bundle bundle = new Bundle();
-				//bundle.putInt("select", select);
-				//intent.putExtras(bundle);
+				
 				startActivity(intent);
 			}
 		});
-		Bundle bundle=getArguments();
-		if(bundle!=null)
-		{
-			this.Lat=bundle.getDouble("Lat");
-			this.Lng=bundle.getDouble("Lng");
-		}
+		
+		
 		
 
 	}
-	
-	public void getLatAndLng(double Lat,double Lng)
-	{
-		this.Lat=Lat;
-		this.Lng=Lng;
-	}
 	// 多线程实现天气查询
 		class RequireWeatherAsyncTask extends AsyncTask<Void, Void, SoapObject> {
-
+			private double Lat;
+			private double Lng;
 			@Override
 			protected SoapObject doInBackground(Void... arg0) {
-				//String city;
-				//city = GeocodeService.getAddressByLatLng(LatLngReceiver.getLat(),
-				//		LatLngReceiver.getLng(), 2);
-				//city = GeocodeService.getAddressByLatLng(Lat,
-				//				Lng, 2);
-				//return WeatherService.getWeatherByCity(city);
+				Lat	=NewLatLngReceiver.getLat();
+				Lng=NewLatLngReceiver.getLng();
 				if(select==0){
-					city = GeocodeService.getAddressByLatLng(Lat,
-									Lng, 2);
+					city = GeocodeService.getAddressByLatLng(Lat,Lng
+									, 2);
 					return WeatherService.getWeatherByCity(city);
 				}else if (select==1) {
 						return WeatherService.getWeatherByCity(city);
@@ -142,10 +130,13 @@ public class WeatherFragment extends Fragment {
 			@Override
 			protected void onPostExecute(SoapObject detail) {
 				// TODO Auto-generated method stub
+				
 				//showWeather(detail);
 			}
 		}
 		private void showWeather(SoapObject detail) {
+			
+			
 			if (detail == null) {
 				Toast toast = Toast.makeText(getActivity(), "请检查网络连接", Toast.LENGTH_SHORT);
 				toast.show();
@@ -262,15 +253,16 @@ public class WeatherFragment extends Fragment {
 		}
 		
 		class SunriseAndSetAsyncTask extends AsyncTask<Void,Void,Date[]>{
-			//private double lat;
-			//private double lng;
+			private double Lat;
+			private double Lng;
 			@Override
 			protected Date[] doInBackground(Void... params) {
-				//Lat = LatLngReceiver.getLat();
-				//Lng = LatLngReceiver.getLng();
+				Lat = NewLatLngReceiver.getLat();
+				Lng = NewLatLngReceiver.getLng();
 				Date now = new Date();
 				Date[] riseSet = new Date[2];
-				SunriseSunset sunriseSunset = new SunriseSunset(Lat, Lng, now, 0);
+				SunriseSunset sunriseSunset = new SunriseSunset(Lat,Lng
+						, now, 0);
 				riseSet[0]=sunriseSunset.getSunrise();
 				riseSet[1]=sunriseSunset.getSunset();		
 				return riseSet;

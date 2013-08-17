@@ -7,8 +7,15 @@ import java.util.Date;
 import java.util.List;
 
 
+
+
+
+
+import ui.activity.GoogleMap.GpsToMapReceiver;
 import ui.activity.gps.GpsObtainActivity.RequireAddressAsyncTask;
 import ui.activity.gps.CurrentLocationProvider;
+import ui.activity.weather.NewLatLngReceiver;
+import ui.activity.weather.WeatherFragment;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.AlertDialog.Builder;
@@ -95,8 +102,8 @@ public class GpsObtainFragment extends Fragment {
 	private String test;
 	
 	private View layoutView;
-	onLocateWeatherListener weatherlistener;
-	locateOnMap maplistener;
+	
+	
 	
 	public static GpsObtainFragment newInstance()
 	{
@@ -198,7 +205,7 @@ public class GpsObtainFragment extends Fragment {
 							// 记录开始高度值
 							startAltitude = currentAltitude;
 							flag = true;
-							//sendStartStatusToGMap();
+							sendStartStatusToGMap();
 							initControlsAndRegEvent();
 						}
 					});
@@ -214,7 +221,7 @@ public class GpsObtainFragment extends Fragment {
 						stopLon = currentLon;
 						// 记录结束是纬度
 						stopLat = currentLat;
-						//sendStopStatusToGMap();
+						sendStopStatusToGMap();
 						writeDataToSqlite();
 						initControlsAndRegEvent();
 						NewMainActivity activity=(NewMainActivity) getActivity();
@@ -232,15 +239,16 @@ public class GpsObtainFragment extends Fragment {
 		String strTime;
 		SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		strTime = sf.format(startTime);
+		GpsToMapReceiver.setStatus(true);
+		GpsToMapReceiver.setTime(strTime);
 		
-		maplistener.sendStartStatusToGMap(strTime,true);
 	}
 	
 	
 	// 发送结束状态广播给GoogleMap
 	public void sendStopStatusToGMap() {
+		GpsToMapReceiver.setStatus(false);
 		
-		maplistener.sendStopStatusToGMap(false);
 	}
 	
 	
@@ -360,11 +368,10 @@ public class GpsObtainFragment extends Fragment {
 			if (newLocation != null) {
 				currentAltitude = altitude = (int) newLocation.getAltitude();
 				speed = newLocation.getSpeed();
-				
-
 				currentLat = lat = newLocation.getLatitude();
 				currentLon = lon = newLocation.getLongitude();
-				sendToWeather();
+				
+				sendBroadcastToWeather();
 				
 				tv_altitude.setText(Integer.toString(altitude));
 				
@@ -497,38 +504,16 @@ public class GpsObtainFragment extends Fragment {
 
 		}
 		
-		public void sendToWeather(){
-			/*Intent intent = new Intent();
-			intent.setAction("LatLng");
-			intent.putExtra("Lat", currentLat);
-			intent.putExtra("Lng", currentLon);
-			getActivity().sendBroadcast(intent);*/
-			weatherlistener.onLocateLatAndLng(currentLat,currentLon);
-		}/***************************************************
-		*****************************************************/
 		
-		//Container Activity must implement this interface
-		public interface onLocateWeatherListener{
-			public void onLocateLatAndLng(double Lat,double Lng);
+		public void sendBroadcastToWeather(){
+			NewLatLngReceiver.setLat(currentLat);
+			NewLatLngReceiver.setLng(currentLon);
 		}
 		
-		public interface locateOnMap{
-			public void sendStopStatusToGMap(boolean status);
-			public void sendStartStatusToGMap(String Time,boolean status);
-		}
 		
-		@Override
-		public void onAttach(Activity activity) {
-			// TODO Auto-generated method stub
-			super.onAttach(activity);
-			try{
-				weatherlistener=(onLocateWeatherListener)activity;
-				maplistener=(locateOnMap)activity;
-			}
-			catch(ClassCastException e)
-			{
-				throw new ClassCastException(activity.toString()+"must implement onLocateWeatherListener and locateOnMap");
-			}
-		}
+		
+		
+		
+		
 
 }
