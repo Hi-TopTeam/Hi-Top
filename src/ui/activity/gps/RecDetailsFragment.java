@@ -294,7 +294,7 @@ public class RecDetailsFragment extends Fragment {
 				ft.addToBackStack(null);
 				ft.commit();
 				NewMainActivity activity=(NewMainActivity) getActivity();
-				activity.indicator.setCurrentItem(2);
+				activity.indicator.setCurrentItem(3);//3是地图界面
 				
 				
 			}
