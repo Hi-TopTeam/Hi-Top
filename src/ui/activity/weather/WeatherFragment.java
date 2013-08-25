@@ -53,6 +53,8 @@ public class WeatherFragment extends Fragment {
 	public void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
+		//Toast toast = Toast.makeText(getActivity(), "weather onCreate()", Toast.LENGTH_SHORT);
+		//toast.show();
 		
 		
 	}
@@ -67,14 +69,21 @@ public class WeatherFragment extends Fragment {
 			select = DataDeliver.getSelect();
 			layoutView=inflater.inflate(R.layout.activity_weather, container, false);
 			initControlsAndRegEvent();
+			//Toast toast = Toast.makeText(getActivity(), "weather initControlsAndRegEvent()", Toast.LENGTH_SHORT);
+			//toast.show();
 			SunriseAndSetAsyncTask calculate = new SunriseAndSetAsyncTask();
-		
+			//toast = Toast.makeText(getActivity(), "weather calculate()", Toast.LENGTH_SHORT);
+			//toast.show();
 		
 		
 			RequireWeatherAsyncTask require = new RequireWeatherAsyncTask();
+			//toast = Toast.makeText(getActivity(), "weather require()", Toast.LENGTH_SHORT);
+			//toast.show();
 			require.execute();
 			calculate.execute();
 		}
+		//Toast toast = Toast.makeText(getActivity(), "weather onCreateView()", Toast.LENGTH_SHORT);
+		//toast.show();
 		return layoutView;
 	}
 	
@@ -250,6 +259,13 @@ public class WeatherFragment extends Fragment {
 			if ("31.gif".equals(strIcon))
 				return R.drawable.a_31;
 			return 0;
+		}
+		@Override
+		public void onResume() {
+			// TODO Auto-generated method stub
+			super.onResume();
+			//Toast toast = Toast.makeText(getActivity(), "weather onResume()", Toast.LENGTH_SHORT);
+			//toast.show();
 		}
 		
 		class SunriseAndSetAsyncTask extends AsyncTask<Void,Void,Date[]>{

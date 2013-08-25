@@ -6,6 +6,7 @@ import java.util.List;
 import ui.activity.GoogleMap.NewGMapFragment;
 
 
+import ui.activity.gps.mGPS;
 import ui.activity.weather.WeatherFragment;
 import android.os.Bundle;
 import android.os.Handler;
@@ -26,15 +27,15 @@ public class NewMainActivity extends FragmentActivity {
 	public FragmentStatePagerAdapter adapter;
 	public ViewPager pager;
 	public TabPageIndicator indicator;
-	private Thread mThread;
-	private IClimbDataService dateService;
 	List<ClimbData> list=null;
+	public mGPS gps;
 	@Override
 	protected void onCreate(Bundle arg0) {
 		// TODO Auto-generated method stub
 		super.onCreate(arg0);
 		setContentView(R.layout.activity_newtab);
-		adapter=new FragmentAdapter(getSupportFragmentManager());
+		gps=new mGPS(this);
+		adapter=new FragmentAdapter(getSupportFragmentManager(),gps);//
 		
 		ViewPager pager = (ViewPager)findViewById(R.id.pager);
         pager.setAdapter(adapter);

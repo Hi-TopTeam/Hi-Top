@@ -9,8 +9,10 @@ import domain.businessEntity.gps.ClimbData;
 import domain.businessService.gps.ClimbDataService;
 import domain.businessService.gps.IClimbDataService;
 import ui.activity.GoogleMap.NewGMapFragment;
-import ui.activity.gps.GpsObtainFragment;
+
+import ui.activity.gps.NewGpsObtainFragment;
 import ui.activity.gps.RecordFragment;
+import ui.activity.gps.mGPS;
 import ui.activity.weather.WeatherFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -27,11 +29,12 @@ public class FragmentAdapter extends FragmentStatePagerAdapter {
 	private ArrayList<Fragment> fragments; 
 	private FragmentManager fm;
 	List<ClimbData> list;
-	
-
-	public FragmentAdapter(FragmentManager fm) {
+	private mGPS gps;
+//
+	public FragmentAdapter(FragmentManager fm,mGPS gps) {
 		
 		super(fm);
+		this.gps=gps;
 		
 		
 		
@@ -50,6 +53,16 @@ public class FragmentAdapter extends FragmentStatePagerAdapter {
 			
 			return rf;
 		}
+		if(super.instantiateItem(container, position).getClass()==NewGpsObtainFragment.class)
+		{
+			NewGpsObtainFragment gf= (NewGpsObtainFragment) super.instantiateItem(container, position);
+			
+			gps.setNewGpsObtainFragment(gf);
+			
+			return gf;
+		}
+		
+		
 		
 		return super.instantiateItem(container, position);
 		
@@ -66,7 +79,8 @@ public class FragmentAdapter extends FragmentStatePagerAdapter {
 		// TODO Auto-generated method stub
 		switch (arg0%CONTENT.length){
 		case 0:
-			return GpsObtainFragment.newInstance();
+			//return GpsObtainFragment.newInstance();
+			return NewGpsObtainFragment.newInstance();
 		case 1: 
 			return RecordFragment.newInstance();
 		case 2:
