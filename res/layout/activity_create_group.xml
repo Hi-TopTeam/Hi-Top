@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/RelativeLayout1"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@drawable/background1" >
+
+    <EditText
+        android:id="@+id/cg_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/cg_place"
+        android:layout_alignParentTop="true"
+        android:layout_alignRight="@+id/cg_place"
+        android:layout_marginTop="71dp"
+        android:ems="10"
+        android:hint="请输入活动名称" >
+
+        <requestFocus />
+    </EditText>
+
+    <EditText
+        android:id="@+id/cg_place"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/cg_time"
+        android:layout_below="@+id/cg_name"
+        android:layout_marginTop="18dp"
+        android:ems="10"
+        android:hint="请输入地点" />
+
+    <EditText
+        android:id="@+id/cg_info"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/cg_time"
+        android:layout_below="@+id/cg_time"
+        android:layout_marginTop="39dp"
+        android:ems="10"
+        android:hint="活动说明"
+        android:inputType="textMultiLine" />
+
+    <EditText
+        android:id="@+id/cg_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/cg_place"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="21dp"
+        android:ems="10"
+        android:hint="时间格式:yyyy-mm-dd" />
+
+    <ProgressBar
+        android:id="@+id/progressBar_create"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/cg_info"
+        android:layout_centerHorizontal="true" 
+        android:visibility="gone"/>
+
+    <Button
+        android:id="@+id/bt_create"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/cg_info"
+        android:layout_alignRight="@+id/cg_info"
+        android:layout_below="@+id/progressBar1"
+        android:text="创建" />
+
+</RelativeLayout>

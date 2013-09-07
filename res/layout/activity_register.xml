@@ -5,11 +5,11 @@
     android:background="@drawable/loginbackground" >
 
     <Button
-        android:id="@+id/bt_cancel"
+        android:id="@+id/name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/bt_ok"
-        android:layout_alignBottom="@+id/bt_ok"
+        android:layout_alignBaseline="@+id/detail_info"
+        android:layout_alignBottom="@+id/detail_info"
         android:layout_alignRight="@+id/et_repasswordconfirm"
         android:text=" 取消"
         android:textColor="@color/white" />
@@ -68,7 +68,7 @@
         <requestFocus />
         </EditText>
     <Button
-        android:id="@+id/bt_ok"
+        android:id="@+id/detail_info"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/et_repasswordconfirm"
@@ -76,4 +76,13 @@
         android:layout_marginTop="45dp"
         android:text="确认"
         android:textColor="@color/white" />
+
+    <ProgressBar
+        android:id="@+id/progressBar_register"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/et_repasswordconfirm"
+        android:layout_centerHorizontal="true"
+        android:visibility="gone" />
+
 </RelativeLayout>

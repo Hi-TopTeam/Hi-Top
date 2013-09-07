@@ -21,6 +21,8 @@ public class LatLngData {
 	@DatabaseField(canBeNull = true)
 	private double lng;
 	
+//	@DatabaseField(canBeNull = true)
+//	private String username;
 	public int getDataID() {
 		return dataID;
 	}
@@ -45,5 +47,17 @@ public class LatLngData {
 	public void setStartTime(String time) {
 		this.time = time;
 	}
+	private String getTime() {
+		return time;
+	}
+	private void setTime(String time) {
+		this.time = time;
+	}
+//	private String getUsername() {
+//		return username;
+//	}
+//	private void setUsername(String username) {
+//		this.username = username;
+//	}
 	
 }

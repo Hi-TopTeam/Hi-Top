@@ -23,7 +23,7 @@ public class MainActivity extends TabActivity  implements OnCheckedChangeListene
 	public static final String TAB_GPS = "tabGps";
 	public static final String TAB_MAP = "tabMap";
 	public static final String TAB_WEATHER = "tabWeather";
-	public static final String TAB_TERRAIN = "tabTerrain";
+	public static final String TAB_COMMUNITY = "tabCommunity";
 	
 	private RadioGroup radioderGroup;	
 	private TabHost tabHost;
@@ -42,8 +42,10 @@ public class MainActivity extends TabActivity  implements OnCheckedChangeListene
         		.setContent(new Intent(this,ui.activity.GoogleMap.GMapActivity.class)));
 		tabHost.addTab(tabHost.newTabSpec("TAB_WEATHER").setIndicator("TAB_WEATHER")
         		.setContent(new Intent(this,ui.activity.weather.WeatherActivity.class))); 
-//		tabHost.addTab(tabHost.newTabSpec("TAB_TERRAIN").setIndicator("TAB_TERRAIN")
-//        		.setContent(new Intent(this,ui.activity.GoogleMap.GoogleMapActivity.class))); 
+//		tabHost.addTab(tabHost.newTabSpec("TAB_COMMUNITY").setIndicator("TAB_COMMUNITY")
+//        		.setContent(new Intent(this,ui.activity.community.CommunityActivity.class))); 
+		tabHost.addTab(tabHost.newTabSpec("TAB_COMMUNITY").setIndicator("TAB_COMMUNITY")
+        		.setContent(new Intent(this,ui.activity.community.Communitymain.class))); 
 		
         radioderGroup = (RadioGroup) findViewById(R.id.main_radio);
 		radioderGroup.setOnCheckedChangeListener(this);
@@ -71,7 +73,7 @@ public class MainActivity extends TabActivity  implements OnCheckedChangeListene
 			tabHost.setCurrentTabByTag("TAB_WEATHER");
 			break;
 		case R.id.radio_button3:
-			tabHost.setCurrentTabByTag("TAB_TERRAIN");
+			tabHost.setCurrentTabByTag("TAB_COMMUNITY");
 			break;
 		}		
 	}

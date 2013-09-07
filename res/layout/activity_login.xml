@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         android:layout_alignBaseline="@+id/tv_register"
         android:layout_alignBottom="@+id/tv_register"
-        android:layout_alignRight="@+id/bt_login"
+        android:layout_alignRight="@+id/info"
         android:text="忘记密码"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:textColor="@color/white" />
@@ -21,7 +21,7 @@
         android:id="@+id/tv_register"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/bt_login"
+        android:layout_alignLeft="@+id/info"
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="84dp"
         android:text="注册账号"
@@ -29,7 +29,7 @@
         android:textColor="@color/white" />
 
     <Button
-        android:id="@+id/bt_login"
+        android:id="@+id/info"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_above="@+id/tv_forget"
@@ -43,7 +43,7 @@
         android:id="@+id/et_password"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/bt_login"
+        android:layout_above="@+id/info"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="55dp"
         android:background="@color/white"
@@ -65,4 +65,13 @@
         android:textColor="@color/black" >
         <requestFocus />
         </EditText>
+
+    <ProgressBar
+        android:id="@+id/progressBar_login"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/info"
+        android:layout_centerHorizontal="true" 
+        android:visibility="gone"/>
+
 </RelativeLayout>

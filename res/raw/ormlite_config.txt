@@ -1,6 +1,58 @@
 #
-# generated on 2013/07/01 08:08:22
+# generated on 2013/08/20 05:22:57
 #
+# --table-start--
+dataClass=domain.businessEntity.Community.FriendsData
+tableName=T_FriendsData
+# --table-fields-start--
+# --field-start--
+fieldName=DataId
+generatedId=true
+# --field-end--
+# --field-start--
+fieldName=username
+canBeNull=false
+# --field-end--
+# --field-start--
+fieldName=nickname
+canBeNull=false
+# --field-end--
+# --table-fields-end--
+# --table-end--
+#################################
+# --table-start--
+dataClass=domain.businessEntity.Community.GroupsData
+tableName=T_GroupsData
+# --table-fields-start--
+# --field-start--
+fieldName=gid
+# --field-end--
+# --field-start--
+fieldName=groupname
+canBeNull=false
+# --field-end--
+# --field-start--
+fieldName=place
+canBeNull=false
+# --field-end--
+# --field-start--
+fieldName=time
+canBeNull=false
+# --field-end--
+# --field-start--
+fieldName=info
+canBeNull=false
+# --field-end--
+# --field-start--
+fieldName=sponsor
+canBeNull=false
+# --field-end--
+# --field-start--
+fieldName=isMyJoin
+# --field-end--
+# --table-fields-end--
+# --table-end--
+#################################
 # --table-start--
 dataClass=domain.businessEntity.gps.AltitudeData
 tableName=T_AltitudeData

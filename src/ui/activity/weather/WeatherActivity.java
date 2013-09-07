@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.ksoap2.serialization.SoapObject;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -23,9 +24,9 @@ import com.DreamTeam.HiTop.R;
 
 import foundation.webservice.GeocodeService;
 import foundation.webservice.WeatherService;
-
 import tool.SunriseSunset.SunriseSunset;
 import ui.activity.ActivityOfAF4Ad;
+import ui.viewModel.LoadingActivity;
 import ui.viewModel.ModelErrorInfo;
 import ui.viewModel.ViewModel;
 
@@ -43,15 +44,16 @@ public class WeatherActivity extends ActivityOfAF4Ad {
 	private TextView today_sunrisetime = null;//
 	private TextView today_sunsettime = null;//
 	private ImageView iv_option = null;
-	private TextView tv_city=null;
-	private String city=null;//查询城市名称
-	private int select;//查询天气模式
+	private TextView tv_city = null;
+	private String city = null;// 查询城市名称
+	private int select;// 查询天气模式
+//	private ProgressDialog mpDialog;
+
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_weather);
-		
 	}
-    
+
 	@Override
 	protected void onResume() {
 		super.onResume();
@@ -81,18 +83,23 @@ public class WeatherActivity extends ActivityOfAF4Ad {
 		// tv_currentTemperature = (TextView)
 		// findViewById(R.id.tv_currentTemperature);
 		// tv_tomorrow_Temp = (TextView) findViewById(R.id.tv_tomorrow_Temp);
-		tv_city =(TextView) findViewById(R.id.tv_city);
+		tv_city = (TextView) findViewById(R.id.tv_city);
 		tv_tomorrow_windspeed = (TextView) findViewById(R.id.tv_tomorrow_windspeed);
 		tv_tomorrow_Temp = (TextView) findViewById(R.id.tv_tomorrow_Temp);
 
 		today_sunrisetime = (TextView) findViewById(R.id.today_sunrisetime);
 		today_sunsettime = (TextView) findViewById(R.id.today_sunsettime);
-		
+
 		iv_option = (ImageView) findViewById(R.id.option);
-		iv_option.setOnClickListener(new View.OnClickListener() {			
+		// 实例化mpDialog
+		Intent intent = new Intent();  
+        intent.setClass(this,ui.viewModel.LoadingActivity.class);//跳转到加载界面  
+        startActivity(intent);
+		iv_option.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				Intent intent = new Intent(WeatherActivity.this,OptionActivity.class);
+				Intent intent = new Intent(WeatherActivity.this,
+						OptionActivity.class);
 				Bundle bundle = new Bundle();
 				bundle.putInt("select", select);
 				intent.putExtras(bundle);
@@ -126,11 +133,11 @@ public class WeatherActivity extends ActivityOfAF4Ad {
 
 		@Override
 		protected SoapObject doInBackground(String... arg0) {
-			if(select==0){
-			city = GeocodeService.getAddressByLatLng(LatLngReceiver.getLat(),
-					LatLngReceiver.getLng(), 2);
-			return WeatherService.getWeatherByCity(city);
-			}else if (select==1) {
+			if (select == 0) {
+				city = GeocodeService.getAddressByLatLng(
+						LatLngReceiver.getLat(), LatLngReceiver.getLng(), 2);
+				return WeatherService.getWeatherByCity(city);
+			} else if (select == 1) {
 				return WeatherService.getWeatherByCity(city);
 			}
 			return null;
@@ -143,6 +150,8 @@ public class WeatherActivity extends ActivityOfAF4Ad {
 	}
 
 	private void showWeather(SoapObject detail) {
+		LoadingActivity loadingActivity = new LoadingActivity();
+		loadingActivity.loadingActivity.finish();
 		if (detail == null) {
 			Toast toast = Toast.makeText(this, "请检查网络连接", Toast.LENGTH_SHORT);
 			toast.show();
@@ -161,7 +170,7 @@ public class WeatherActivity extends ActivityOfAF4Ad {
 		// 解析今天的天气情况
 		String date = detail.getProperty(3).toString();
 		weatherToday = "今天:" + date;
-//		weatherToday = weatherToday + "  " + date.split(" ")[1];
+		// weatherToday = weatherToday + "  " + date.split(" ")[1];
 		tv_todaydate.setText(weatherToday);
 		weatherToday = detail.getProperty(8).toString();// 今日气温范围
 		tv_today_Temp.setText(weatherToday);
@@ -258,10 +267,11 @@ public class WeatherActivity extends ActivityOfAF4Ad {
 			return R.drawable.a_31;
 		return 0;
 	}
-	
-	class SunriseAndSetAsyncTask extends AsyncTask<Void,Void,Date[]>{
+
+	class SunriseAndSetAsyncTask extends AsyncTask<Void, Void, Date[]> {
 		private double lat;
 		private double lng;
+
 		@Override
 		protected Date[] doInBackground(Void... params) {
 			lat = LatLngReceiver.getLat();
@@ -269,8 +279,8 @@ public class WeatherActivity extends ActivityOfAF4Ad {
 			Date now = new Date();
 			Date[] riseSet = new Date[2];
 			SunriseSunset sunriseSunset = new SunriseSunset(lat, lng, now, 0);
-			riseSet[0]=sunriseSunset.getSunrise();
-			riseSet[1]=sunriseSunset.getSunset();		
+			riseSet[0] = sunriseSunset.getSunrise();
+			riseSet[1] = sunriseSunset.getSunset();
 			return riseSet;
 		}
 
@@ -280,8 +290,7 @@ public class WeatherActivity extends ActivityOfAF4Ad {
 			today_sunrisetime.setText(sf.format(result[0]));
 			today_sunsettime.setText(sf.format(result[1]));
 		}
-		
-		
+
 	}
-	
+
 }

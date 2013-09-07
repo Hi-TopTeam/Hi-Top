@@ -6,13 +6,16 @@ import java.util.Date;
 import java.util.List;
 
 import ui.activity.ActivityOfAF4Ad;
+import ui.activity.SystemManagement.LoginActivity;
 import ui.viewModel.ModelErrorInfo;
 import ui.viewModel.ViewModel;
 import android.app.AlertDialog;
 import android.app.AlertDialog.Builder;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.content.DialogInterface.OnClickListener;
+import android.content.SharedPreferences.Editor;
 import android.content.Intent;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
@@ -33,6 +36,7 @@ import android.view.GestureDetector;
 import android.view.GestureDetector.OnGestureListener;
 import android.view.KeyEvent;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnTouchListener;
@@ -49,11 +53,13 @@ import android.widget.LinearLayout;
 import android.widget.TableLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+import app.About;
 
 import com.DreamTeam.HiTop.R;
 
 import domain.businessEntity.gps.ClimbData;
 import domain.businessEntity.gps.LatLngData;
+import domain.businessService.gps.ClearData;
 import domain.businessService.gps.ClimbDataService;
 import domain.businessService.gps.IClimbDataService;
 import foundation.webservice.GeocodeService;
@@ -117,8 +123,31 @@ public class GpsObtainActivity extends ActivityOfAF4Ad implements
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-		getMenuInflater().inflate(R.menu.activity_obtain_gps, menu);
-		return true;
+		menu.add(0,1,1,"关于Hi-Top");
+		menu.add(0,2,2,"退出当前账号");
+		return super.onCreateOptionsMenu(menu);
+	}
+	
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		if(item.getItemId()==1){
+			Intent intent = new  Intent(GpsObtainActivity.this,About.class);
+			startActivity(intent);
+		}
+		if(item.getItemId()==2){
+			SharedPreferences sp;
+			sp = getSharedPreferences("Login_status", MODE_PRIVATE);
+			Editor editor = sp.edit();
+			editor.putBoolean("login_in", false);
+			editor.commit();
+			ClearData clear = new ClearData();
+			clear.clearAllData();
+			Intent intent = new Intent(GpsObtainActivity.this,LoginActivity.class);
+			startActivity(intent);
+			this.finish();
+		}
+		return super.onOptionsItemSelected(item);
 	}
 
 	@Override
@@ -253,7 +282,7 @@ public class GpsObtainActivity extends ActivityOfAF4Ad implements
 		locManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
 
 		  networkListner=new MyLocationListner();
-	      locManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 1000, 0, networkListner);
+//	      locManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 1000, 0, networkListner);
 	      gpsListener=new MyLocationListner();
 	      locManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 3000, 0, gpsListener);
 

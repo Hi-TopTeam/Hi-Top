@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 public class ForgotPWDActivity extends Activity implements WebServiceDelegate {
@@ -24,6 +25,7 @@ public class ForgotPWDActivity extends Activity implements WebServiceDelegate {
 	private WebServiceUtils webService;
 	private final String SERVICE_NS = "http://SystemManager.szp.com/";
 	private final String SERVICE_URL = "http://szplss.tomcat.inteidc.com/szpWebService/SystemManagement";
+	private ProgressBar mProgress;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -33,7 +35,9 @@ public class ForgotPWDActivity extends Activity implements WebServiceDelegate {
 		et_password = (EditText) findViewById(R.id.et_fgpwd);
 		et_passwordConfirm = (EditText) findViewById(R.id.et_fgpwdconfrim);
 		et_nickname = (EditText) findViewById(R.id.et_fgnickname);
-		bt_forgot = (Button) findViewById(R.id.bt_forgot);
+		bt_forgot = (Button) findViewById(R.id.detail_name);
+		mProgress = (ProgressBar) findViewById(R.id.progressBar_fogot);
+		mProgress.setIndeterminate(true);
 		bt_forgot.setOnClickListener(new ForgotListener());
 	}
 	class ForgotListener implements OnClickListener{
@@ -61,6 +65,7 @@ public class ForgotPWDActivity extends Activity implements WebServiceDelegate {
 					args.put("username", username);
 					args.put("nickname", nickname);
 					args.put("newPassword", password);
+					mProgress.setVisibility(View.VISIBLE);
 					webService.callWebService("forgotPassword", args, boolean.class);
 				}
 			} else {
@@ -74,7 +79,7 @@ public class ForgotPWDActivity extends Activity implements WebServiceDelegate {
 		
 	}
 	@Override
-	public void handleException(Exception ex) {
+	public void handleException(Object ex) {
 		Toast toast = Toast.makeText(ForgotPWDActivity.this, "请检查网络连接",
 				Toast.LENGTH_SHORT);
 		toast.show();
@@ -83,7 +88,8 @@ public class ForgotPWDActivity extends Activity implements WebServiceDelegate {
 	@Override
 	public void handleResultOfWebService(String methodName, Object result) {
 		boolean flag = (Boolean) result;
-		if(flag == true){		
+		if(flag == true){
+			mProgress.setVisibility(View.GONE);
 			Toast toast = Toast.makeText(ForgotPWDActivity.this, "新密码设置成功，请重新登陆",
 					Toast.LENGTH_SHORT);
 			toast.show();

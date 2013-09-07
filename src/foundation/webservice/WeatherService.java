@@ -136,6 +136,7 @@ public class WeatherService {
 			final SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(SoapEnvelope.VER11);
 			SoapObject soapObject = new SoapObject(SERVICE_NS,methodName);
 			soapObject.addProperty("theCityCode",cityName);
+//			soapObject.addProperty("theUserID","9cce8dbd179a4f36879a60e08aae2cb8");
 			envelope.bodyOut = soapObject;
 			//设置与。net提供的Web Service保持较好的兼容性
 			envelope.dotNet = true;

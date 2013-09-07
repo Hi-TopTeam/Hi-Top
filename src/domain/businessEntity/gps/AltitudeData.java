@@ -15,6 +15,9 @@ public class AltitudeData {
 	@DatabaseField(canBeNull = false)
 	private String time;
 	
+//	@DatabaseField(canBeNull = false)
+//	private String username;
+	
 	public AltitudeData(){
 	}
 
@@ -41,5 +44,21 @@ public class AltitudeData {
 	public void setTime(String time) {
 		this.time = time;
 	}
+
+	private int getDataID() {
+		return dataID;
+	}
+
+	private void setDataID(int dataID) {
+		this.dataID = dataID;
+	}
+
+//	private String getUsername() {
+//		return username;
+//	}
+//
+//	private void setUsername(String username) {
+//		this.username = username;
+//	}
 	
 }

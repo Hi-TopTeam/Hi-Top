@@ -42,6 +42,8 @@ public class ClimbData {
 	@DatabaseField(canBeNull = true)
 	private Double latitude;
 	
+//	@DatabaseField(canBeNull = true)
+//	private String username;
 	
 	public int getStartAltitude() {
 		return startAltitude;
@@ -92,5 +94,11 @@ public class ClimbData {
 	public void setLatitude(Double latitude) {
 		this.latitude = latitude;
 	}
+//	private String getUsername() {
+//		return username;
+//	}
+//	private void setUsername(String username) {
+//		this.username = username;
+//	}
 
 }

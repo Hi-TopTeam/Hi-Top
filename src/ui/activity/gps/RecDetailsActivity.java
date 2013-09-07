@@ -5,6 +5,7 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Random;
 
@@ -17,6 +18,7 @@ import org.achartengine.renderer.XYSeriesRenderer;
 
 import android.R.integer;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -61,14 +63,21 @@ import tool.data.ClimbDataUtil;
 import ui.activity.ActivityOfAF4Ad;
 import ui.activity.GoogleMap.GMapActivity;
 import ui.activity.GoogleMap.GoogleMapActivity;
+import ui.activity.community.CommunityActivity;
 import ui.viewModel.ModelErrorInfo;
 import ui.viewModel.ViewModel;
 import ui.viewModel.gps.RecDetailViewModel;
+import webservice.HiTopWebPara;
+import webservice.WebServiceDelegate;
+import webservice.WebServiceUtils;
 
 public class RecDetailsActivity extends ActivityOfAF4Ad implements
-		OnTouchListener, OnGestureListener {
+		OnTouchListener, OnGestureListener, WebServiceDelegate {
 	private IClimbDataService dateService;
 	private ILatLngDataService latLngService;
+	private WebServiceUtils webService;
+	private String username;
+	private SharedPreferences sp;
 	// 记录名
 	private TextView tv_Name = null;
 	// 当前日期
@@ -189,7 +198,7 @@ public class RecDetailsActivity extends ActivityOfAF4Ad implements
         series.add(50,90);
           // 把添加了点的折线放入dataset
         ds.addSeries(series);
-        
+       
         return ds;
      }
     public XYMultipleSeriesRenderer getRenderer() {
@@ -233,7 +242,9 @@ public class RecDetailsActivity extends ActivityOfAF4Ad implements
 		detailLayout.setLongClickable(true);
 		dateService = new ClimbDataService();
 		latLngService = new LatLngDataService();
-
+		webService = new WebServiceUtils(HiTopWebPara.CM_NAMESPACE, HiTopWebPara.CM_URL, this);
+		sp = getSharedPreferences("login_user", MODE_PRIVATE);
+		username = sp.getString("user",null);
 		Intent intent = getIntent();
 		ClimbData climbdata;
 		if (intent != null) {
@@ -318,7 +329,6 @@ public class RecDetailsActivity extends ActivityOfAF4Ad implements
 		}
 
 	}
-
 	//
 	public void showActivity(ClimbData climbdata) {
 		if (climbdata != null) {
@@ -449,9 +459,9 @@ public class RecDetailsActivity extends ActivityOfAF4Ad implements
 		view1.layout(0, 0, display.getWidth(), display.getHeight());
 		view1.setDrawingCacheEnabled(true);
 		Bitmap bitmap = Bitmap.createBitmap(view1.getDrawingCache());
+		byte[] pic = Bitmap2Bytes(bitmap);
 		picContent.setImageUrl(null);
-		picContent.addImageByContent(Bitmap2Bytes(bitmap));
-
+		picContent.addImageByContent(pic);
 		socialShareUi.showShareMenu(this, picContent,
 				Utility.SHARE_THEME_STYLE, new ShareListener() {
 					@Override
@@ -484,6 +494,10 @@ public class RecDetailsActivity extends ActivityOfAF4Ad implements
 					}
 
 				});
+		HashMap<String,Object> args = new HashMap<String, Object>();
+		args.put("username", username);
+		args.put("pic", pic);
+		webService.callWebService("share_pic", args, boolean.class);
 	}
 
 	// 把Bitmap 转成 Byte
@@ -506,4 +520,16 @@ public class RecDetailsActivity extends ActivityOfAF4Ad implements
         }
 		return true; 
     }
+
+	@Override
+	public void handleException(Object ex) {
+		System.out.println();
+		
+	}
+
+	@Override
+	public void handleResultOfWebService(String methodName, Object result) {
+
+		System.out.println();
+	}
 }

@@ -1,0 +1,74 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+        android:background="@drawable/background1"
+    
+    android:orientation="vertical"
+    tools:context=".MainActivity" >
+
+	<LinearLayout 
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    >
+	    
+	<ImageView
+	    android:id="@+id/detail_img"
+	    android:layout_width="60dp"
+	    android:layout_height="60dp"
+	    android:padding="10dp"
+	    />
+
+    <LinearLayout 
+        android:layout_width="250dp"
+        android:layout_height="60dp"
+        android:orientation="vertical"
+        >
+
+        <TextView
+            android:id="@+id/detail_name"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:layout_marginTop="5dp"
+            android:text="groupName"
+            android:textColor="@color/white"
+            android:textSize="20dp" />
+
+        <TextView
+            android:id="@+id/detail_info"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:padding="5dp"
+            android:text="something about this group!"
+            android:textColor="@color/white" />
+
+    </LinearLayout>
+	    
+	</LinearLayout>
+
+	
+	<LinearLayout 
+	    android:orientation="vertical"
+	    android:layout_width="match_parent"
+	    android:layout_height="wrap_content"
+	    android:layout_marginTop="80dp"
+	    >
+
+	    <EditText
+	        android:id="@+id/detail_moreInfo"
+	        android:layout_width="match_parent"
+	        android:layout_height="200dp"
+	        android:enabled="false"
+	        android:text="Notice of this group：welcome to this group!" />
+
+	    <Button
+	        android:id="@+id/bt_checkmember"
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content"
+	        android:text="查看组员名单" />
+
+	</LinearLayout>
+    
+
+</LinearLayout>

@@ -14,11 +14,7 @@ import com.j256.ormlite.stmt.PreparedDelete;
 import com.j256.ormlite.stmt.PreparedQuery;
 import com.j256.ormlite.stmt.QueryBuilder;
 import com.j256.ormlite.support.ConnectionSource;
-/**
- * 
- * @author 福建师范大学软件学院   陈贝、刘大刚
- *
- */
+
 public class DataContext implements IDataContext {
 
 	private ConnectionSource connectionSource;//数据库连接

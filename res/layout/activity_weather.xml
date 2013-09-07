@@ -80,7 +80,7 @@
             android:background="@drawable/text_view_border" >
 
             <ImageView
-                android:id="@+id/imageView1"
+                android:id="@+id/img"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
@@ -92,7 +92,7 @@
                 android:id="@+id/imageView2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_above="@+id/imageView1"
+                android:layout_above="@+id/img"
                 android:layout_alignParentLeft="true"
                 android:layout_marginBottom="26dp"
                 android:src="@drawable/temperature_icon" />
@@ -112,7 +112,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignLeft="@+id/tv_today_Temp"
-                android:layout_alignTop="@+id/imageView1"
+                android:layout_alignTop="@+id/img"
                 android:textColor="@color/white"
                 android:textSize="15sp" />
         </RelativeLayout>
@@ -198,7 +198,7 @@
             android:background="@drawable/text_view_border" >
 
             <ImageView
-                android:id="@+id/imageView1"
+                android:id="@+id/img"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignLeft="@+id/imageView5"
@@ -220,7 +220,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignLeft="@+id/tv_tomorrow_Temp"
-                android:layout_alignTop="@+id/imageView1"
+                android:layout_alignTop="@+id/img"
                 android:textColor="@color/white"
                 android:textSize="15sp" />
 

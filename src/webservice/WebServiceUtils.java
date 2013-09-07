@@ -7,12 +7,19 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Set;
+import java.util.Vector;
+
 import org.ksoap2.SoapFault;
+import org.ksoap2.serialization.Marshal;
+import org.ksoap2.serialization.MarshalBase64;
+import org.ksoap2.serialization.PropertyInfo;
 import org.ksoap2.serialization.SoapObject;
 import org.ksoap2.serialization.SoapPrimitive;
 import org.ksoap2.serialization.SoapSerializationEnvelope;
 import org.ksoap2.transport.HttpTransportSE;
 import org.xmlpull.v1.XmlPullParserException;
+
+import domain.businessEntity.Helper.GroupHelper;
 import android.annotation.SuppressLint;
 import android.os.AsyncTask;
 
@@ -52,7 +59,10 @@ public class WebServiceUtils {
 			protected void onPostExecute(Object result) {
 				// TODO Auto-generated method stub
 				super.onPostExecute(result);
-				delegate.handleResultOfWebService(methodName, result);
+				if (result instanceof Exception)
+					delegate.handleException(result);
+				else
+					delegate.handleResultOfWebService(methodName, result);
 			}
 
 		}.execute();
@@ -63,23 +73,35 @@ public class WebServiceUtils {
 		Object object = null;
 
 		SoapObject requestSoapObject = new SoapObject(namespace, methodName);
-		if (args != null) {
-			Set<String> set = args.keySet();
-			for (String key : set) {
-
-				requestSoapObject.addProperty(key, args.get(key));
-			}
-		}
 
 		SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(
 				SoapSerializationEnvelope.VER10);
+		if (methodName.equals("createGroup")) {
+			GroupHelper groupHelper = new GroupHelper();
+			groupHelper = (GroupHelper) args.get("GroupHelper");
+			PropertyInfo piInfo = new PropertyInfo();
+			piInfo.setName("GroupHelper");
+			piInfo.setValue(groupHelper);
+			piInfo.setType(groupHelper.getClass());
+			requestSoapObject.addProperty(piInfo);
+		}else {
+			if (args != null) {
+				Set<String> set = args.keySet();
+				for (String key : set) {
+					requestSoapObject.addProperty(key, args.get(key));
+				}
+			}
+		}
+		if(methodName.equals("share_pic")){
+			Marshal byteMarshal = new MarshalBase64();
+			byteMarshal.register(envelope);
+		}
 		envelope.implicitTypes = true;
 		envelope.dotNet = false;
 		envelope.bodyOut = requestSoapObject;
 
 		HttpTransportSE httpTransportSE = new HttpTransportSE(serviceURL);
 		httpTransportSE.debug = true;
-
 		try {
 			httpTransportSE.call(null, envelope);
 			Object retObj = envelope.getResponse();
@@ -96,6 +118,10 @@ public class WebServiceUtils {
 
 				object = unmarshalSoapPimitiveResponse(retObj, resultType);
 				return object;
+			} else if (retObj instanceof Vector) {
+				object = (Object) retObj;
+
+				return object;
 			} else {
 				SoapObject soapObject = (SoapObject) retObj;
 
@@ -104,11 +130,11 @@ public class WebServiceUtils {
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
-			delegate.handleException(e);
-			
+			return e;
+
 		} catch (XmlPullParserException e) {
 			e.printStackTrace();
-			delegate.handleException(e);
+			return e;
 		}
 		return null;
 	}

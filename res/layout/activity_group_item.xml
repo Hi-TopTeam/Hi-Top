@@ -1,0 +1,61 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal"
+   
+    tools:context=".MainActivity" >
+
+    <ImageView
+        android:id="@+id/img"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:padding="10dp"
+        />
+    <LinearLayout 
+        android:layout_width="210dp"
+        android:layout_height="60dp"
+        android:orientation="vertical"
+        >
+
+        <TextView
+            android:id="@+id/name"
+            android:layout_width="210dp"
+            android:layout_height="30dp"
+            android:layout_marginTop="5dp"
+            android:text="groupName"
+            android:textColor="@color/white"
+            android:textSize="20dp" />
+
+        <TextView
+            android:id="@+id/info"
+            android:layout_width="210dp"
+            android:layout_height="30dp"
+            android:padding="5dp"
+            android:text="something about this group!"
+            android:textColor="@color/white" />
+
+    </LinearLayout>
+    
+    <LinearLayout 
+        android:layout_width="50dp"
+        android:layout_height="60dp"
+        >
+     <TextView 
+        android:id="@+id/add"
+        android:layout_width="wrap_content"
+        android:layout_height="60dp"
+        android:paddingLeft="5dp"
+        android:text="+"
+        android:paddingBottom="5dp"
+        android:textSize="30dp"
+        android:textColor="#666666"
+        android:layout_gravity="center"
+        android:gravity="center_vertical"
+        android:focusable="false"
+        />
+        
+    </LinearLayout>
+
+
+</LinearLayout>
