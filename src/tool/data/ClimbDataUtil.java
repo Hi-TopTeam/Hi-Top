@@ -48,10 +48,6 @@ public class ClimbDataUtil {
 		climbdat.setStartAltitude(bundle.getInt("startAltitude"));
 		climbdat.setStopAltitude(bundle.getInt("stopAltitude"));
 		
-
-		
-		
-		
 		SimpleDateFormat sdf = new SimpleDateFormat("HH:MI:SS");
 		try {
 			 date1 = sdf.parse(bundle.getString("startTime"));

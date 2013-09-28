@@ -29,7 +29,7 @@ public class LoginActivity extends Activity implements WebServiceDelegate {
 	private EditText et_password;
 	private WebServiceUtils webservice;
 	private final String SERVICE_NS = "http://SystemManager.szp.com/";
-	private final String SERVICE_URL = "http://szplss.tomcat.inteidc.com/szpWebService/SystemManagement";
+	private final String SERVICE_URL = "http://110.84.129.43:8009/szpWebService/SystemManagement";
 	private SharedPreferences sp;
 	private SharedPreferences sp2;
 	private ProgressBar mProgress;
@@ -40,11 +40,11 @@ public class LoginActivity extends Activity implements WebServiceDelegate {
 		setContentView(R.layout.activity_login);
 		sp = getSharedPreferences("Login_status", MODE_PRIVATE);
 		sp2 = getSharedPreferences("login_user", MODE_PRIVATE);
-//		if (sp.getBoolean("login_in", false)) {
+		if (sp.getBoolean("login_in", false)) {
 			Intent intent = new Intent(LoginActivity.this, MainActivity.class);
 			startActivity(intent);
 			this.finish();
-//		}
+		}
 		bt_login = (Button) findViewById(R.id.info);
 		tv_register = (TextView) findViewById(R.id.tv_register);
 		tv_forget = (TextView) findViewById(R.id.tv_forget);

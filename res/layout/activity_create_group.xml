@@ -52,11 +52,11 @@
         android:hint="时间格式:yyyy-mm-dd" />
 
     <ProgressBar
-        android:id="@+id/progressBar_create"
+        android:id="@+id/progressBar_creat"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/cg_info"
-        android:layout_centerHorizontal="true" 
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true" 
         android:visibility="gone"/>
 
     <Button
@@ -65,7 +65,8 @@
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/cg_info"
         android:layout_alignRight="@+id/cg_info"
-        android:layout_below="@+id/progressBar1"
+        android:layout_below="@+id/cg_info"
+        android:layout_marginTop="54dp"
         android:text="创建" />
 
 </RelativeLayout>

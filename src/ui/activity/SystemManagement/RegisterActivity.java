@@ -28,7 +28,7 @@ public class RegisterActivity extends Activity implements WebServiceDelegate {
 	private EditText et_nickname;
 	private WebServiceUtils webService;
 	private final String SERVICE_NS = "http://SystemManager.szp.com/";
-	private final String SERVICE_URL = "http://szplss.tomcat.inteidc.com/szpWebService/SystemManagement";
+	private final String SERVICE_URL = "http://110.84.129.43:8009/szpWebService/SystemManagement";
 	private ProgressBar mProgress;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {

@@ -49,6 +49,7 @@ public class CreateGroupActivity extends ActivityOfAF4Ad implements WebServiceDe
 		tv_time = (TextView) findViewById(R.id.cg_time);
 		tv_info = (TextView) findViewById(R.id.cg_info);
 		username = sp.getString("user",null);
+		mProgress = (ProgressBar) findViewById(R.id.progressBar_creat);
 		bt_create.setOnClickListener(new View.OnClickListener() {
 			
 			@Override
