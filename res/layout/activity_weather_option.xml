@@ -31,12 +31,14 @@
         android:id="@+id/sp_province"
         android:layout_width="match_parent"
         android:layout_height="60dp"
+        android:background="@android:color/transparent"
         android:prompt="@string/province" />
 
     <Spinner
         android:id="@+id/sp_city"
         android:layout_width="match_parent"
         android:layout_height="60dp"
+        android:background="@android:color/transparent"
         android:prompt="@string/city" />
 
     <RelativeLayout
