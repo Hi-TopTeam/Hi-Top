@@ -23,6 +23,7 @@
             android:layout_height="50dp"
             android:padding="5dp"
             android:gravity="center_vertical"
+            
             android:text="something about this group!"
             android:textColor="@color/white" />
 
