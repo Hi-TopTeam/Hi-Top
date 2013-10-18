@@ -7,24 +7,26 @@
     android:background="@drawable/background1"
     tools:context=".MainActivity" >
 
-    <LinearLayout 
+    <RelativeLayout 
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_weight="0.916"
         >
 
         <ImageButton 
             android:id="@+id/iv_createGroup"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="260dp"
+            android:layout_alignParentRight="true"
             android:background="@drawable/res_tu_creategroup"
             />
 
-    </LinearLayout>
+    </RelativeLayout>
     
     <ui.activity.community.MyListView
         android:id="@+id/lv_myjoin"
         android:layout_width="match_parent"
-        android:layout_height="410dp" />
+        android:layout_weight="0.083"
+        android:layout_height="match_parent" />
 
 </LinearLayout>
