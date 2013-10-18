@@ -7,8 +7,8 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="0.26"
+        android:layout_height="match_parent"
+        android:layout_weight="2.8"
         android:background="@drawable/text_view_border" >
 
         <TextView
@@ -71,12 +71,13 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="146dp"
-        android:layout_weight="0.01" >
+        android:layout_height="match_parent"
+        android:layout_weight="3.5" >
 
         <RelativeLayout
-            android:layout_width="156dp"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_weight="1"
             android:background="@drawable/text_view_border" >
 
             <ImageView
@@ -120,6 +121,7 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_weight="1"
             android:background="@drawable/text_view_border" >
 
             <ImageView
@@ -164,13 +166,14 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="152dp"
+        android:layout_height="match_parent"
+        android:layout_weight="3.5"
         android:orientation="horizontal" >
 
         <RelativeLayout
-            android:layout_width="141dp"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="0.69"
+            android:layout_weight="1"
             android:background="@drawable/text_view_border" >
 
             <ImageView
@@ -192,9 +195,9 @@
         </RelativeLayout>
 
         <RelativeLayout
-            android:layout_width="160dp"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="0.13"
+            android:layout_weight="1"
             android:background="@drawable/text_view_border" >
 
             <ImageView
