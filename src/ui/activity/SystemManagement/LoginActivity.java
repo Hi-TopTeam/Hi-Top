@@ -40,7 +40,7 @@ public class LoginActivity extends Activity implements WebServiceDelegate {
 		setContentView(R.layout.activity_login);
 		sp = getSharedPreferences("Login_status", MODE_PRIVATE);
 		sp2 = getSharedPreferences("login_user", MODE_PRIVATE);
-		if (sp.getBoolean("login_in", false)) {
+		if (true) {
 			Intent intent = new Intent(LoginActivity.this, MainActivity.class);
 			startActivity(intent);
 			this.finish();

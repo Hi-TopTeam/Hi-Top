@@ -44,8 +44,8 @@ public class MainActivity extends TabActivity  implements OnCheckedChangeListene
         		.setContent(new Intent(this,ui.activity.weather.WeatherActivity.class))); 
 //		tabHost.addTab(tabHost.newTabSpec("TAB_COMMUNITY").setIndicator("TAB_COMMUNITY")
 //        		.setContent(new Intent(this,ui.activity.community.CommunityActivity.class))); 
-		tabHost.addTab(tabHost.newTabSpec("TAB_COMMUNITY").setIndicator("TAB_COMMUNITY")
-        		.setContent(new Intent(this,ui.activity.community.Communitymain.class))); 
+//		tabHost.addTab(tabHost.newTabSpec("TAB_COMMUNITY").setIndicator("TAB_COMMUNITY")
+//        		.setContent(new Intent(this,ui.activity.community.Communitymain.class))); 
 		
         radioderGroup = (RadioGroup) findViewById(R.id.main_radio);
 		radioderGroup.setOnCheckedChangeListener(this);

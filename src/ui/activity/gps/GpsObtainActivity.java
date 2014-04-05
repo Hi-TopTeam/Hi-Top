@@ -281,8 +281,8 @@ public class GpsObtainActivity extends ActivityOfAF4Ad implements
 	public void startGps() {
 		locManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
 
-		  networkListner=new MyLocationListner();
-	      locManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 1000, 0, networkListner);
+		 // networkListner=new MyLocationListner();
+	     // locManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 1000, 0, networkListner);
 	      gpsListener=new MyLocationListner();
 	      locManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 3000, 0, gpsListener);
 
