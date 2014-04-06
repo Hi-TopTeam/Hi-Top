@@ -2,7 +2,7 @@ package socialShare;
 
 public class SocialShareConfig {
 
-	public final static String mbApiKey = "OYt9Ios9cy7vM09e64AIIjFE"; // online
+	public final static String mbApiKey = "TSBGjEpVoAGDtt4sGB0kXLBa"; // online
 																		// env
 
 	public static final String SINA_SSO_APP_KEY = "319137445";

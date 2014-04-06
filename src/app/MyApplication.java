@@ -1,5 +1,7 @@
 package app;
 
+import com.baidu.frontia.FrontiaApplication;
+
 import ui.viewModel.ViewModel;
 
 import foundation.data.DataHelper;
@@ -15,7 +17,7 @@ import android.util.Log;
  * @author 福建师范大学软件学院 倪友聪、赵康
  * 
  */
-public class MyApplication extends Application {
+public class MyApplication extends FrontiaApplication {
 
 	// 数据库助手
 	public static DataHelper DATAHELPER;

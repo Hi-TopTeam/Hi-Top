@@ -2,29 +2,21 @@ package ui.activity.gps;
 
 import java.io.ByteArrayOutputStream;
 import java.text.DateFormat;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Random;
-
 import org.achartengine.ChartFactory;
 import org.achartengine.GraphicalView;
 import org.achartengine.model.XYMultipleSeriesDataset;
 import org.achartengine.model.XYSeries;
 import org.achartengine.renderer.XYMultipleSeriesRenderer;
 import org.achartengine.renderer.XYSeriesRenderer;
-
-import android.R.integer;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Looper;
-import android.os.Message;
+import android.util.Log;
 import android.view.GestureDetector.OnGestureListener;
 import android.view.Display;
 import android.view.GestureDetector;
@@ -42,37 +34,25 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import com.baidu.sharesdk.BaiduShareException;
-import com.baidu.sharesdk.BaiduSocialShare;
-import com.baidu.sharesdk.ShareContent;
-import com.baidu.sharesdk.ShareListener;
-import com.baidu.sharesdk.SocialShareLogger;
-import com.baidu.sharesdk.Utility;
-import com.baidu.sharesdk.ui.BaiduSocialShareUserInterface;
+import com.baidu.frontia.Frontia;
+import com.baidu.frontia.api.FrontiaSocialShare;
+import com.baidu.frontia.api.FrontiaSocialShareContent;
+import com.baidu.frontia.api.FrontiaSocialShareListener;
+import com.baidu.frontia.api.FrontiaSocialShare.FrontiaTheme;
 import com.DreamTeam.HiTop.R;
-
 import domain.businessEntity.gps.ClimbData;
 import domain.businessService.gps.ClimbDataService;
 import domain.businessService.gps.IClimbDataService;
 import domain.businessService.gps.ILatLngDataService;
 import domain.businessService.gps.LatLngDataService;
-
 import socialShare.SocialShareConfig;
-import tool.data.ClimbDataUtil;
 import ui.activity.ActivityOfAF4Ad;
-import ui.activity.GoogleMap.GMapActivity;
-import ui.activity.GoogleMap.GoogleMapActivity;
-import ui.activity.community.CommunityActivity;
 import ui.viewModel.ModelErrorInfo;
 import ui.viewModel.ViewModel;
-import ui.viewModel.gps.RecDetailViewModel;
-import webservice.HiTopWebPara;
-import webservice.WebServiceDelegate;
 import webservice.WebServiceUtils;
 
 public class RecDetailsActivity extends ActivityOfAF4Ad implements
-		OnTouchListener, OnGestureListener, WebServiceDelegate {
+		OnTouchListener, OnGestureListener{
 	private IClimbDataService dateService;
 	private ILatLngDataService latLngService;
 	private WebServiceUtils webService;
@@ -112,16 +92,11 @@ public class RecDetailsActivity extends ActivityOfAF4Ad implements
 	private RelativeLayout detailLayout;
 
 	private ImageView iv_share;
+	
+	private FrontiaSocialShare mSocialShare;
+	private FrontiaSocialShareContent mImageContent = new FrontiaSocialShareContent();
 
-	/********************** 社会化分享组件定义 ***********************************/
-	private BaiduSocialShare socialShare;
-	private BaiduSocialShareUserInterface socialShareUi;
-	private final static String appKey = SocialShareConfig.mbApiKey;
-	private final static String wxAppKey = SocialShareConfig.wxApp;
-	private ShareContent picContent;
-	private final Handler handler = new Handler(Looper.getMainLooper());
 
-	/*******************************************************************/
 	/*********************** 图表 *****************************************/
 	private XYMultipleSeriesDataset ds;
 	private XYMultipleSeriesRenderer render;
@@ -136,11 +111,9 @@ public class RecDetailsActivity extends ActivityOfAF4Ad implements
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_details);
 		// 初始化社会化主件
-		socialShare = BaiduSocialShare.getInstance(this, appKey);
-		// socialShare.supportWeiBoSso(BaiduSocialShareConfig.SINA_SSO_APP_KEY);
-		socialShare.supportWeixin(wxAppKey);
-		socialShareUi = socialShare.getSocialShareUserInterfaceInstance();
-		SocialShareLogger.on();
+		boolean isInit = Frontia.init(getApplicationContext(), SocialShareConfig.mbApiKey);
+		mSocialShare=Frontia.getSocialShare();
+		mSocialShare.setContext(this);
 	}
 
 	@Override
@@ -242,7 +215,7 @@ public class RecDetailsActivity extends ActivityOfAF4Ad implements
 		detailLayout.setLongClickable(true);
 		dateService = new ClimbDataService();
 		latLngService = new LatLngDataService();
-		webService = new WebServiceUtils(HiTopWebPara.CM_NAMESPACE, HiTopWebPara.CM_URL, this);
+	//	webService = new WebServiceUtils(HiTopWebPara.CM_NAMESPACE, HiTopWebPara.CM_URL, this);
 		sp = getSharedPreferences("login_user", MODE_PRIVATE);
 		username = sp.getString("user",null);
 		Intent intent = getIntent();
@@ -258,12 +231,6 @@ public class RecDetailsActivity extends ActivityOfAF4Ad implements
 		}
 		showActivity(climbdata);
 
-		// 设置分享内容
-		picContent = new ShareContent();
-		picContent.setContent("Hi-Top:我刚刚登上了" + climbdata.getClimbName() + "!"
-				+ "这是我的行程记录");
-		picContent.setTitle("Hi-Top");
-		picContent.setUrl("http://weibo.com/lovelss310");
 		// 设置删除键监听事件
 		iv_delete.setOnClickListener(new View.OnClickListener() {
 
@@ -279,19 +246,19 @@ public class RecDetailsActivity extends ActivityOfAF4Ad implements
 			}
 		});
 		// 设置定位键监听事件
-		iv_location.setOnClickListener(new View.OnClickListener() {
-
-			@Override
-			public void onClick(View v) {
-				Intent intent = new Intent(RecDetailsActivity.this,
-						GMapActivity.class);
-				Bundle bundle = new Bundle();
-				bundle.putString("time", strTime);
-				//bundle.putString("Marker", Name);
-				intent.putExtras(bundle);
-				startActivity(intent);
-			}
-		});
+//		iv_location.setOnClickListener(new View.OnClickListener() {
+//
+//			@Override
+//			public void onClick(View v) {
+//			Intent intent = new Intent(RecDetailsActivity.this,
+//						GMapActivity.class);
+//				Bundle bundle = new Bundle();
+//				bundle.putString("time", strTime);
+//				//bundle.putString("Marker", Name);
+//				intent.putExtras(bundle);
+//				startActivity(intent);
+//			}
+//		});
 
 		iv_back.setOnClickListener(new View.OnClickListener() {
 			@Override
@@ -454,52 +421,35 @@ public class RecDetailsActivity extends ActivityOfAF4Ad implements
 
 	/*************** 截屏分享 **************/
 	public void printscreen_share() {
-		View view1 = getWindow().getDecorView();
+		View view = getWindow().getDecorView();
 		Display display = getWindowManager().getDefaultDisplay();
-		view1.layout(0, 0, display.getWidth(), display.getHeight());
-		view1.setDrawingCacheEnabled(true);
-		Bitmap bitmap = Bitmap.createBitmap(view1.getDrawingCache());
-		byte[] pic = Bitmap2Bytes(bitmap);
-		picContent.setImageUrl(null);
-		picContent.addImageByContent(pic);
-		socialShareUi.showShareMenu(this, picContent,
-				Utility.SHARE_THEME_STYLE, new ShareListener() {
-					@Override
-					public void onAuthComplete(Bundle values) {
-						// TODO Auto-generated method stub
-					}
-
-					@Override
-					public void onApiComplete(String responses) {
-						// TODO Auto-generated method stub
-						handler.post(new Runnable() {
-							@Override
-							public void run() {
-								Utility.showAlert(RecDetailsActivity.this,
-										"分享成功");
-							}
-						});
-					}
-
-					@Override
-					public void onError(BaiduShareException e) {
-
-						handler.post(new Runnable() {
-							@Override
-							public void run() {
-								Utility.showAlert(RecDetailsActivity.this,
-										"分享失败");
-							}
-						});
-					}
-
-				});
-		HashMap<String,Object> args = new HashMap<String, Object>();
-		args.put("username", username);
-		args.put("pic", pic);
-		webService.callWebService("share_pic", args, boolean.class);
+		view.layout(0, 0, display.getWidth(), display.getHeight());
+		view.setDrawingCacheEnabled(true);
+		Bitmap bitmap = Bitmap.createBitmap(view.getDrawingCache());
+		mImageContent.setContent("快来看看我的记录吧~");
+		mImageContent.setTitle("Hi-Top");
+		mImageContent.setLinkUrl("http://weibo.com/lovelss310");
+		mImageContent.setImageData(bitmap);
+		mSocialShare.show(RecDetailsActivity.this.getWindow().getDecorView(), mImageContent, FrontiaTheme.DARK,  new ShareListener());
 	}
+	private class ShareListener implements FrontiaSocialShareListener {
 
+		@Override
+		public void onSuccess() {
+			Log.d("Test","share success");
+		}
+
+		@Override
+		public void onFailure(int errCode, String errMsg) {
+			Log.d("Test","share errCode "+errCode);
+		}
+
+		@Override
+		public void onCancel() {
+			Log.d("Test","cancel ");
+		}
+		
+	}
 	// 把Bitmap 转成 Byte
 	public static byte[] Bitmap2Bytes(Bitmap bm) {
 		ByteArrayOutputStream baos = new ByteArrayOutputStream();
@@ -521,15 +471,4 @@ public class RecDetailsActivity extends ActivityOfAF4Ad implements
 		return true; 
     }
 
-	@Override
-	public void handleException(Object ex) {
-		System.out.println();
-		
-	}
-
-	@Override
-	public void handleResultOfWebService(String methodName, Object result) {
-
-		System.out.println();
-	}
 }
