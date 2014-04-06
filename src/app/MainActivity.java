@@ -38,8 +38,8 @@ public class MainActivity extends TabActivity  implements OnCheckedChangeListene
         //添加选项卡
 		tabHost.addTab(tabHost.newTabSpec("TAB_GPS").setIndicator("TAB_GPS")
         			.setContent(new Intent(this, ui.activity.gps.GpsObtainActivity.class)));
-		tabHost.addTab(tabHost.newTabSpec("TAB_MAP").setIndicator("TAB_MAP")
-        		.setContent(new Intent(this,ui.activity.GoogleMap.GMapActivity.class)));
+//		tabHost.addTab(tabHost.newTabSpec("TAB_MAP").setIndicator("TAB_MAP")
+ //       		.setContent(new Intent(this,ui.activity.GoogleMap.GMapActivity.class)));
 		tabHost.addTab(tabHost.newTabSpec("TAB_WEATHER").setIndicator("TAB_WEATHER")
         		.setContent(new Intent(this,ui.activity.weather.WeatherActivity.class))); 
 //		tabHost.addTab(tabHost.newTabSpec("TAB_COMMUNITY").setIndicator("TAB_COMMUNITY")
