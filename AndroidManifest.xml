@@ -29,13 +29,6 @@
         android:glEsVersion="0x00020000"
         android:required="true" />
 
-    <!-- GoogleMap授权 -->
-    <permission
-        android:name="com.example.mapdemo.permission.MAPS_RECEIVE"
-        android:protectionLevel="signature" />
-
-    <uses-permission android:name="ui.activity.GoogleMap.permission.MAPS_RECEIVE" />
-
     <application
         android:name="app.MyApplication"
         android:allowBackup="true"
